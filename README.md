@@ -1,4 +1,4 @@
-# 💍 Sarah & Michael's Wedding Invitation
+# 💍 John Mark & Chezza's Wedding Invitation
 
 A premium, elegant, and responsive wedding invitation web application built with **Next.js 15+**, **React 19**, and **Tailwind CSS 4**. This project features a modern aesthetic with smooth animations, interactive components, and a seamless user experience.
 
@@ -41,12 +41,14 @@ A premium, elegant, and responsive wedding invitation web application built with
 ### Installation
 
 1. **Clone the repository:**
+
    ```bash
    git clone https://github.com/SimplyLouie/wed-invite.git
    cd wed-invite
    ```
 
 2. **Install dependencies:**
+
    ```bash
    npm install
    # or
@@ -54,6 +56,7 @@ A premium, elegant, and responsive wedding invitation web application built with
    ```
 
 3. **Run the development server:**
+
    ```bash
    npm run dev
    ```
@@ -82,6 +85,7 @@ wed-invite/
 ## 🎨 Customization
 
 To personalize the invitation:
+
 1. Update couple names and dates in `app/layout.tsx` and `components/wedding/hero.tsx`.
 2. Replace images in the `public/images/` directory.
 3. Modify the countdown target date in `components/wedding/countdown.tsx`.
@@ -95,4 +99,4 @@ This project is private and intended for personal use.
 
 ---
 
-Built with ❤️ for Sarah & Michael.
+Built with ❤️ for John Mark & Chezza.

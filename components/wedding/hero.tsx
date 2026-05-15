@@ -10,7 +10,7 @@ export function Hero() {
       <div className="absolute inset-0 z-0">
         <Image
           src="/images/hero-couple.jpg"
-          alt="Sarah and Michael"
+          alt="John Mark and Chezza"
           fill
           className="object-cover"
           priority
@@ -20,14 +20,14 @@ export function Hero() {
 
       {/* Content */}
       <div className="relative z-10 text-center text-white px-6">
-        <p className="text-sm md:text-base tracking-[0.3em] uppercase font-[family-name:var(--font-montserrat)] mb-4 animate-fade-in">
+        <p className="text-sm md:text-base tracking-[0.3em] uppercase font-(family-name:--font-montserrat) mb-4 animate-fade-in">
           We&apos;re Getting Married
         </p>
         <h1 className="text-5xl md:text-7xl lg:text-8xl font-light mb-6 animate-fade-in animation-delay-200">
-          Sarah & Michael
+          John Mark & Chezza
         </h1>
         <div className="w-24 h-px bg-white/60 mx-auto mb-6 animate-fade-in animation-delay-400" />
-        <p className="text-lg md:text-xl tracking-[0.15em] font-[family-name:var(--font-montserrat)] font-light animate-fade-in animation-delay-600">
+        <p className="text-lg md:text-xl tracking-[0.15em] font-(family-name:--font-montserrat) font-light animate-fade-in animation-delay-600">
           December 28, 2026
         </p>
       </div>
