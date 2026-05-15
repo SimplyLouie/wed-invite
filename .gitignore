@@ -48,4 +48,5 @@ __v0_jsx-dev-runtime.ts
 *.ntvs*
 *.njsproj
 *.sln
-*.sw?push-to-upstream.sh
+*.sw?
+push-to-upstream.sh
