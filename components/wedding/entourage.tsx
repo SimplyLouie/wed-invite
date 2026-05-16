@@ -41,10 +41,16 @@ const groomsSide: EntourageMember[] = [
 ]
 
 const primarySponsors: EntourageMember[] = [
-  { name: "Mr. & Mrs. Eduardo Santos", role: "Principal Sponsor" },
-  { name: "Mr. & Mrs. Roberto Cruz", role: "Principal Sponsor" },
-  { name: "Mr. & Mrs. Fernando Garcia", role: "Principal Sponsor" },
-  { name: "Mr. & Mrs. Alejandro Mendoza", role: "Principal Sponsor" },
+  { name: "Mr. Elson Manlunas & Mrs. Fe Manlunas", role: "Principal Sponsor" },
+  { name: "Mr. Eric Esconde & Mrs. Mary Grace Esconde", role: "Principal Sponsor" },
+  { name: "Mr. Dante Argallon & Mrs. Arlene Argallon", role: "Principal Sponsor" },
+  { name: "Mr. Junrey Bartolabac & Mrs. Rowena Bartolabac", role: "Principal Sponsor" },
+  { name: "Mr. Engr. Paul Bugarin & Mrs. Mira Bugarin", role: "Principal Sponsor" },
+  { name: "Mr. Kap Alley Berdin & Mrs. Victoria Gerra", role: "Principal Sponsor" },
+  { name: "Mr. Allan Caballero & Mrs. Engr. Criselda Caballero", role: "Principal Sponsor" },
+  { name: "Mr. Jeson Agosto & Mrs. Elmarie Agosto", role: "Principal Sponsor" },
+  { name: "Mr. Eduardo Pino & Mrs. Myrna Ybañez", role: "Principal Sponsor" },
+
 ]
 
 const secondarySponsors = {
@@ -67,7 +73,7 @@ const bearers: EntourageMember[] = [
 function MemberCard({ member }: { member: EntourageMember }) {
   return (
     <div className="text-center group">
-      <div className="w-20 h-20 md:w-24 md:h-24 mx-auto mb-3 rounded-full bg-muted flex items-center justify-center overflow-hidden border-2 border-accent/20 group-hover:border-accent transition-colors">
+      {/* <div className="w-20 h-20 md:w-24 md:h-24 mx-auto mb-3 rounded-full bg-muted flex items-center justify-center overflow-hidden border-2 border-accent/20 group-hover:border-accent transition-colors">
         {member.image ? (
           <Image
             src={member.image}
@@ -81,7 +87,7 @@ function MemberCard({ member }: { member: EntourageMember }) {
             {member.name.charAt(0)}
           </span>
         )}
-      </div>
+      </div> */}
       <h4 className="font-serif text-sm md:text-base text-foreground">{member.name}</h4>
       <p className="text-xs text-muted-foreground tracking-wide uppercase mt-1">
         {member.role}

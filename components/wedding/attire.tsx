@@ -8,7 +8,6 @@ const greenShades = [
   { name: "Olive", hex: "#708238" },
   { name: "Forest", hex: "#228B22" },
   { name: "Emerald", hex: "#50C878" },
-  { name: "Hunter", hex: "#355E3B" },
   { name: "Moss", hex: "#8A9A5B" },
 ];
 
@@ -18,7 +17,7 @@ const brownShades = [
   { name: "Chestnut", hex: "#954535" },
   { name: "Mocha", hex: "#967969" },
   { name: "Chocolate", hex: "#7B3F00" },
-  { name: "Taupe", hex: "#483C32" },
+
 ];
 
 type Shade = {
