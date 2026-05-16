@@ -6,7 +6,7 @@ import { X, ChevronLeft, ChevronRight } from "lucide-react"
 import { cn } from "@/lib/utils"
 
 const galleryImages = [
-  { src: "/images/gallery-1.jpg", alt: "Sarah and Michael laughing together" },
+  { src: "/images/gallery-1.jpg", alt: "John Mark and Chezza laughing together" },
   { src: "/images/gallery-2.jpg", alt: "Wedding rings detail" },
   { src: "/images/gallery-3.jpg", alt: "Beautiful bride portrait" },
   { src: "/images/gallery-4.jpg", alt: "Wedding venue" },
@@ -35,7 +35,7 @@ export function Gallery() {
       <div className="container mx-auto px-6">
         {/* Section Header */}
         <div className="text-center mb-16 md:mb-24">
-          <p className="text-sm tracking-[0.3em] uppercase font-[family-name:var(--font-montserrat)] text-muted-foreground mb-4">
+          <p className="text-sm tracking-[0.3em] uppercase font-(family-name:--font-montserrat) text-muted-foreground mb-4">
             Captured Moments
           </p>
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-light text-foreground">
@@ -51,7 +51,7 @@ export function Gallery() {
               onClick={() => openLightbox(index)}
               className={cn(
                 "relative overflow-hidden rounded-sm group cursor-pointer",
-                index === 0 || index === 5 ? "row-span-2 aspect-[3/4]" : "aspect-square"
+                index === 0 || index === 5 ? "row-span-2 aspect-3/4" : "aspect-square"
               )}
             >
               <Image
@@ -117,7 +117,7 @@ export function Gallery() {
           </div>
 
           {/* Counter */}
-          <div className="absolute bottom-6 left-1/2 -translate-x-1/2 text-white/80 text-sm font-[family-name:var(--font-montserrat)] tracking-widest">
+          <div className="absolute bottom-6 left-1/2 -translate-x-1/2 text-white/80 text-sm font-(family-name:--font-montserrat) tracking-widest">
             {selectedImage + 1} / {galleryImages.length}
           </div>
         </div>

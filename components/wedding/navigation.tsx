@@ -43,7 +43,7 @@ export function Navigation() {
             isScrolled ? "text-foreground" : "text-white"
           )}
         >
-          S & M
+          J & C
         </a>
 
         {/* Desktop Navigation */}
@@ -53,7 +53,7 @@ export function Navigation() {
               <a
                 href={link.href}
                 className={cn(
-                  "text-sm tracking-[0.2em] uppercase font-[family-name:var(--font-montserrat)] transition-colors hover:text-accent",
+                  "text-sm tracking-[0.2em] uppercase font-(family-name:--font-montserrat) transition-colors hover:text-accent",
                   isScrolled ? "text-foreground" : "text-white"
                 )}
               >
@@ -89,7 +89,7 @@ export function Navigation() {
               <a
                 href={link.href}
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="block text-sm tracking-[0.2em] uppercase font-[family-name:var(--font-montserrat)] text-foreground hover:text-accent transition-colors py-2"
+                className="block text-sm tracking-[0.2em] uppercase font-(family-name:--font-montserrat) text-foreground hover:text-accent transition-colors py-2"
               >
                 {link.label}
               </a>
