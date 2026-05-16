@@ -25,6 +25,8 @@ interface EntourageMember {
   To add real images for any member, add an 'image' property to their object.
   Example: { name: "Maria Santos", role: "Maid of Honor", image: "/images/maria.jpg" }
   Place the image files in the 'public/images/' folder.
+  TO REMOVE PLACEHOLDERS ENTIRELY: Once you have real images for everyone, delete the `getPlaceholderImage`
+   function and update `MemberCard` to use: const imageSrc = member.image || "/images/placeholder-user.jpg"
 */
 
 const bridesSide: EntourageMember[] = [
