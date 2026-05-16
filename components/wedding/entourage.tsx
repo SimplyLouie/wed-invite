@@ -20,6 +20,13 @@ interface EntourageMember {
 ]
 */
 
+/* 
+  JM INSTRUCTIONS FOR IMAGE:
+  To add real images for any member, add an 'image' property to their object.
+  Example: { name: "Maria Santos", role: "Maid of Honor", image: "/images/maria.jpg" }
+  Place the image files in the 'public/images/' folder.
+*/
+
 const bridesSide: EntourageMember[] = [
   { name: "Maria Santos", role: "Maid of Honor" },
   { name: "Shinn Everielle Booc", role: "Bridesmaid" },
@@ -70,25 +77,36 @@ const bearers: EntourageMember[] = [
   { name: "Zeijan Wryle Ybañez", role: "Coin Bearer" },
 ]
 
+const getPlaceholderImage = (name: string) => {
+  const placeholders = [
+    "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200&h=200&fit=crop",
+    "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&h=200&fit=crop",
+    "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&h=200&fit=crop",
+    "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=200&h=200&fit=crop",
+    "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=200&h=200&fit=crop",
+    "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=200&h=200&fit=crop",
+    "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop",
+    "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=200&h=200&fit=crop",
+  ]
+  const index = name.split("").reduce((acc, char) => acc + char.charCodeAt(0), 0) % placeholders.length
+  return placeholders[index]
+}
+
 function MemberCard({ member }: { member: EntourageMember }) {
+  const imageSrc = member.image || getPlaceholderImage(member.name)
+
   return (
     <div className="text-center group">
-      /*Img circle frame of each member */
-      {/* <div className="w-20 h-20 md:w-24 md:h-24 mx-auto mb-3 rounded-full bg-muted flex items-center justify-center overflow-hidden border-2 border-accent/20 group-hover:border-accent transition-colors">
-        {member.image ? (
-          <Image
-            src={member.image}
-            alt={member.name}
-            width={96}
-            height={96}
-            className="object-cover w-full h-full"
-          />
-        ) : (
-          <span className="text-2xl md:text-3xl text-accent/60 font-serif">
-            {member.name.charAt(0)}
-          </span>
-        )}
-      </div> */}
+      {/* Img circle frame of each member */}
+      <div className="w-20 h-20 md:w-24 md:h-24 mx-auto mb-3 rounded-full bg-muted flex items-center justify-center overflow-hidden border-2 border-accent/20 group-hover:border-accent transition-colors">
+        <Image
+          src={imageSrc}
+          alt={member.name}
+          width={96}
+          height={96}
+          className="object-cover w-full h-full"
+        />
+      </div>
       <h4 className="font-serif text-sm md:text-base text-foreground">{member.name}</h4>
       <p className="text-xs text-muted-foreground tracking-wide uppercase mt-1">
         {member.role}
