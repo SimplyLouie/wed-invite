@@ -3,6 +3,7 @@ import { Hero } from "@/components/wedding/hero"
 import { Countdown } from "@/components/wedding/countdown"
 import { OurStory } from "@/components/wedding/our-story"
 import { Entourage } from "@/components/wedding/entourage"
+import { Attire } from "@/components/wedding/attire"
 import { Details } from "@/components/wedding/details"
 import { Timeline } from "@/components/wedding/timeline"
 import { Gallery } from "@/components/wedding/gallery"
@@ -18,6 +19,7 @@ export default function WeddingPage() {
       <Countdown />
       <OurStory />
       <Entourage />
+      <Attire />
       <Details />
       <Timeline />
       <Gallery />
