@@ -49,7 +49,7 @@ export function MusicPlayer() {
       {/* Hidden audio element - using a royalty-free wedding music URL */}
       <audio
         ref={audioRef}
-        src="/new_song.mp3"
+        src="/new_song.mp3" /* Change here your new song*/
         preload="auto"
         loop
       />
