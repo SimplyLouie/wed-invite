@@ -266,9 +266,15 @@ export function Entourage() {
           </h3>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 max-w-3xl mx-auto">
             {bearers.map((bearer) => (
-              <p key={bearer.name} className="font-serif text-sm md:text-base text-foreground">
-                {bearer.name}
-              </p>
+              <div key={bearer.name}>
+                        <p className="text-sm md:text-base italic text-[#8C6A5D] mt-1">
+                          {bearer.role}
+                        </p>
+
+                        <p className="font-serif text-lg md:text-xl text-foreground">
+                          {bearer.name}
+                        </p>
+                    </div>
             ))}
           </div>
         </div>
