@@ -5,7 +5,7 @@ import Image from "next/image"
 interface EntourageMember {
   name: string
   role: string
-  image?: string
+  
 }
 
 const GroomsParents: EntourageMember[] = [
@@ -77,64 +77,12 @@ const flowerGirls: EntourageMember[] = [
 ]
 
 const bearers: EntourageMember[] = [
+
   { name: "Elias Caden Marquesess", role: "Ring Bearer" },
   { name: "Abiel Jimenez", role: "Bible Bearer" },
   { name: "Zeijan Wryle Ybañez", role: "Coin Bearer" },
 ]
 
-const getPlaceholderImage = (name: string) => {
-  const placeholders = [
-    "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200&h=200&fit=crop",
-    "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&h=200&fit=crop",
-    "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&h=200&fit=crop",
-    "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=200&h=200&fit=crop",
-    "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=200&h=200&fit=crop",
-    "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=200&h=200&fit=crop",
-    "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop",
-    "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=200&h=200&fit=crop",
-  ]
-  const index = name.split("").reduce((acc, char) => acc + char.charCodeAt(0), 0) % placeholders.length
-  return placeholders[index]
-}
-
-{/*Img circle frame of each member */}
-function MemberCard({ member }: { member: EntourageMember }) {
-  const imageSrc = member.image || getPlaceholderImage(member.name)
-
-  return (
-    <div className="text-center group">
-      {/* Img circle frame of each member */}
-      <div className="w-20 h-20 md:w-24 md:h-24 mx-auto mb-3 rounded-full bg-muted flex items-center justify-center overflow-hidden border-2 border-accent/20 group-hover:border-accent transition-colors">
-        <Image
-          src={imageSrc}
-          alt={member.name}
-          width={96}
-          height={96}
-          className="object-cover w-full h-full"
-        />
-      </div>
-      {/* <div className="w-20 h-20 md:w-24 md:h-24 mx-auto mb-3 rounded-full bg-muted flex items-center justify-center overflow-hidden border-2 border-accent/20 group-hover:border-accent transition-colors">
-        {member.image ? (
-          <Image
-            src={member.image}
-            alt={member.name}
-            width={96}
-            height={96}
-            className="object-cover w-full h-full"
-          />
-        ) : (
-          <span className="text-2xl md:text-3xl text-accent/60 font-serif">
-            {member.name.charAt(0)}
-          </span>
-        )}
-      </div> */}
-      <h4 className="font-serif text-sm md:text-base text-foreground">{member.name}</h4>
-      <p className="text-xs text-muted-foreground tracking-wide uppercase mt-1">
-        {member.role}
-      </p>
-    </div>
-  )
-}
 
 export function Entourage() {
   return (
@@ -153,26 +101,46 @@ export function Entourage() {
 
         {/* Groom's Parents */}
         <div className="mb-12 md:mb-16">
-          <h3 className="text-center font-serif text-xl md:text-2xl text-foreground mb-6 md:mb-8">
+          <h3 className="text-center font-cursive text-2xl md:text-4xl text-[#8C6A5D] mb-6 md:mb-8">
             Groom's Parents
           </h3>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 max-w-4xl mx-auto">
-            {GroomsParents.map((parent) => (
-              <MemberCard key={parent.name} member={parent} />
-            ))}
-          </div>
+          
+              <div className="w-40 h-[1px] bg-[#d8cfc7] mx-auto mb-3"></div>
+              <div className="text-center">
+                {GroomsParents.map((parent) => (
+                      <div key={parent.name}>
+                        <p className="text-muted text-sm md:text-base italic text-[#8C6A5D] mt-1">
+                          {parent.role}
+                        </p>
+
+                        <p className="font-serif text-lg md:text-xl text-foreground">
+                          {parent.name}
+                        </p>
+                    </div>
+                      ))}
+            </div>
         </div>
 
         {/* Bride's Parents */}
         <div className="mb-12 md:mb-16">
-          <h3 className="text-center font-serif text-xl md:text-2xl text-foreground mb-6 md:mb-8">
+          <h3 className="text-center font-cursive text-2xl md:text-4xl text-[#8C6A5D] mb-6 md:mb-8">
             Bride's Parents
           </h3>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 max-w-4xl mx-auto">
-            {BridesParents.map((parent) => (
-              <MemberCard key={parent.name} member={parent} />
-            ))}
-          </div>
+          
+          <div className="w-40 h-[1px] bg-[#d8cfc7] mx-auto mb-3"></div>
+              <div className="text-center">
+                {BridesParents.map((parent) => (
+                      <div key={parent.name}>
+                        <p className="text-muted text-sm md:text-base italic text-[#8C6A5D] mt-1">
+                          {parent.role}
+                        </p>
+
+                        <p className="font-serif text-lg md:text-xl text-foreground">
+                          {parent.name}
+                        </p>                
+                    </div>
+                      ))}
+            </div>
         </div>
 
         {/* Principal Sponsors */}
@@ -182,7 +150,9 @@ export function Entourage() {
           </h3>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 max-w-4xl mx-auto">
             {primarySponsors.map((sponsor) => (
-              <MemberCard key={sponsor.name} member={sponsor} />
+              <p key={sponsor.name} className="font-serif text-sm md:text-base text-foreground">
+                {sponsor.name}
+              </p>
             ))}
           </div>
         </div>
@@ -194,10 +164,19 @@ export function Entourage() {
             <h3 className="font-serif text-xl md:text-2xl text-foreground mb-6 md:mb-8">
               Bride&apos;s Side
             </h3>
+
             <div className="grid grid-cols-2 gap-4 md:gap-6">
-              {bridesSide.map((member) => (
-                <MemberCard key={member.name} member={member} />
-              ))}
+                {bridesSide.map((member) => (
+                  <div key={member.name}>
+                        <p className="text-muted text-sm md:text-base italic text-[#8C6A5D] mt-1">
+                          {member.role}
+                        </p>
+
+                        <p className="font-serif text-lg md:text-xl text-foreground">
+                          {member.name}
+                        </p>
+                    </div>
+                ))}
             </div>
           </div>
 
@@ -208,7 +187,15 @@ export function Entourage() {
             </h3>
             <div className="grid grid-cols-2 gap-4 md:gap-6">
               {groomsSide.map((member) => (
-                <MemberCard key={member.name} member={member} />
+                <div key={member.name}>
+                        <p className="text-muted text-sm md:text-base italic text-[#8C6A5D] mt-1">
+                          {member.role}
+                        </p>
+
+                        <p className="font-serif text-lg md:text-xl text-foreground">
+                          {member.name}
+                        </p>
+                    </div>
               ))}
             </div>
           </div>
@@ -265,7 +252,9 @@ export function Entourage() {
           </h3>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 max-w-3xl mx-auto">
             {flowerGirls.map((flower) => (
-              <MemberCard key={flower.name} member={flower} />
+              <p key={flower.name} className="font-serif text-sm md:text-base text-foreground">
+                {flower.name}
+              </p>
             ))}
           </div>
         </div>
@@ -277,7 +266,15 @@ export function Entourage() {
           </h3>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 max-w-3xl mx-auto">
             {bearers.map((bearer) => (
-              <MemberCard key={bearer.name} member={bearer} />
+              <div key={bearer.name}>
+                        <p className="text-muted text-sm md:text-base italic text-[#8C6A5D] mt-1">
+                          {bearer.role}
+                        </p>
+
+                        <p className="font-serif text-lg md:text-xl text-foreground">
+                          {bearer.name}
+                        </p>
+                    </div>
             ))}
           </div>
         </div>
