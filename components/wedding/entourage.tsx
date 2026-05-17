@@ -5,20 +5,20 @@ import Image from "next/image"
 interface EntourageMember {
   name: string
   role: string
-  /* image?: string */
+  image?: string
 }
-/* NOt yet Added */
-/*const GroomsParents: EntourageMember[] = [
+
+const GroomsParents: EntourageMember[] = [
   { name: "Glen Abad", role: "Father" },
   { name: "Sarah Abad", role: "Mother" },
 
 ]
-/* NOt yet Added */
-/*const BridesParents: EntourageMember[] = [
+
+const BridesParents: EntourageMember[] = [
   { name: "Tarcisio Dela Cruz", role: "Father" },
   { name: "Amilita Dela Cruz", role: "Mother" },
 ]
-*/
+
 
 /* 
   JM INSTRUCTIONS FOR IMAGE:
@@ -68,12 +68,15 @@ const secondarySponsors = {
   candle: ["Mr. Charles Bott", "Mrs. Charmie Sheen Bott"],
 }
 
-const bearers: EntourageMember[] = [
+const flowerGirls: EntourageMember[] = [
   { name: "Gabriella Eloise Bott", role: "Flower Girl" },
   { name: "Sophia Scarlett Marqueses", role: "Flower Girl" },
   { name: "Sophia Syziel Bartolabac", role: "Flower Girl" },
   { name: "Arianne Argallon", role: "Flower Girl" },
   { name: "Hannah Mae Abad", role: "Flower Girl" },
+]
+
+const bearers: EntourageMember[] = [
   { name: "Elias Caden Marquesess", role: "Ring Bearer" },
   { name: "Abiel Jimenez", role: "Bible Bearer" },
   { name: "Zeijan Wryle Ybañez", role: "Coin Bearer" },
@@ -146,6 +149,30 @@ export function Entourage() {
             The Entourage
           </h2>
           <div className="w-16 md:w-24 h-px bg-accent mx-auto" />
+        </div>
+
+        {/* Groom's Parents */}
+        <div className="mb-12 md:mb-16">
+          <h3 className="text-center font-serif text-xl md:text-2xl text-foreground mb-6 md:mb-8">
+            Groom's Parents
+          </h3>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 max-w-4xl mx-auto">
+            {GroomsParents.map((parent) => (
+              <MemberCard key={parent.name} member={parent} />
+            ))}
+          </div>
+        </div>
+
+        {/* Bride's Parents */}
+        <div className="mb-12 md:mb-16">
+          <h3 className="text-center font-serif text-xl md:text-2xl text-foreground mb-6 md:mb-8">
+            Bride's Parents
+          </h3>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 max-w-4xl mx-auto">
+            {BridesParents.map((parent) => (
+              <MemberCard key={parent.name} member={parent} />
+            ))}
+          </div>
         </div>
 
         {/* Principal Sponsors */}
@@ -228,6 +255,18 @@ export function Entourage() {
                 </p>
               ))}
             </div>
+          </div>
+        </div>
+
+        {/* Flower girls */}
+        <div>
+          <h3 className="text-center font-serif text-xl md:text-2xl text-foreground mb-6 md:mb-8">
+            Flower Girls
+          </h3>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 max-w-3xl mx-auto">
+            {flowerGirls.map((flower) => (
+              <MemberCard key={flower.name} member={flower} />
+            ))}
           </div>
         </div>
 
