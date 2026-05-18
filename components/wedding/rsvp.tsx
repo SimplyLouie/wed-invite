@@ -137,6 +137,7 @@ export function RSVP() {
                   </Label>
                   <select
                     id="guests"
+                    aria-label="Number of Guests"
                     value={formData.guests}
                     onChange={(e) =>
                       setFormData({ ...formData, guests: e.target.value })

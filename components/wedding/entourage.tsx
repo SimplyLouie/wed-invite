@@ -84,6 +84,55 @@ const bearers: EntourageMember[] = [
 ]
 
 
+function EntourageSide({
+  title,
+  lead,
+  members,
+}: {
+  title: string
+  lead: EntourageMember
+  members: EntourageMember[]
+}) {
+  return (
+    <div className="text-center">
+      <h3 className="font-serif text-xl md:text-3xl text-foreground mb-3 font-bold">
+        {title}
+      </h3>
+
+      <div className="w-40 h-px bg-[#d8cfc7] mx-auto mb-3"></div>
+      <div className="grid gap-6">
+        <div className="mx-auto max-w-xs">
+          <p className="font-cursive text-2xl text-accent italic">
+            {lead.role}
+          </p>
+          <p className="font-cursive text-xl text-foreground mt-1">
+            {lead.name}
+          </p>
+        </div>
+
+        <div className="grid grid-cols-2 gap-4 md:gap-4 mt-2">
+          {members.map((member, index) => {
+            const isLastOddItem = members.length % 2 === 1 && index === members.length - 1
+            return (
+              <div
+                key={member.name}
+                className={`text-center ${isLastOddItem ? "col-span-2 justify-self-center max-w-xs" : ""}`}
+              >
+                <p className="text-muted text-sm tracking-[0.2em] italic mt-1">
+                  {member.role}
+                </p>
+                <p className="font-cursive text-lg md:text-xl text-foreground mt-1">
+                  {member.name}
+                </p>
+              </div>
+            )
+          })}
+        </div>
+      </div>
+    </div>
+  )
+}
+
 export function Entourage() {
   return (
     <section id="entourage" className="py-16 md:py-24 bg-secondary/30">
@@ -159,53 +208,26 @@ export function Entourage() {
 
         {/* Bride's Side & Groom's Side */}
         <div className="grid md:grid-cols-2 gap-8 md:gap-12 mb-12 md:mb-16">
-          {/* Bride's Side */}
-          <div className="text-center">
-            <h3 className="font-serif text-xl md:text-2xl text-foreground mb-6 md:mb-8">
-              Bride&apos;s Side
-            </h3>
+          <EntourageSide
+            title="Bride's Side"
+            lead={bridesSide[0]}
+            members={bridesSide.slice(1)}
+          />
 
-            <div className="grid grid-cols-2 gap-4 md:gap-6">
-                {bridesSide.map((member) => (
-                  <div key={member.name}>
-                        <p className="text-muted text-sm md:text-base italic mt-1">
-                          {member.role}
-                        </p>
-
-                        <p className="font-serif text-lg md:text-xl text-foreground">
-                          {member.name}
-                        </p>
-                    </div>
-                ))}
-            </div>
-          </div>
-
-          {/* Groom's Side */}
-          <div className="text-center">
-            <h3 className="font-serif text-xl md:text-2xl text-foreground mb-6 md:mb-8">
-              Groom&apos;s Side
-            </h3>
-            <div className="grid grid-cols-2 gap-4 md:gap-6">
-              {groomsSide.map((member) => (
-                <div key={member.name}>
-                        <p className="text-muted text-sm md:text-base italic mt-1">
-                          {member.role}
-                        </p>
-
-                        <p className="font-serif text-lg md:text-xl text-foreground">
-                          {member.name}
-                        </p>
-                    </div>
-              ))}
-            </div>
-          </div>
+          <EntourageSide
+            title="Groom's Side"
+            lead={groomsSide[0]}
+            members={groomsSide.slice(1)}
+          />
         </div>
 
         {/* Secondary Sponsors */}
         <div className="mb-12 md:mb-16">
-          <h3 className="text-center font-serif text-xl md:text-2xl text-foreground mb-6 md:mb-8">
+          <h3 className="text-center font-serif text-xl md:text-2xl text-foreground mb-6 md:mb-2">
             Secondary Sponsors
           </h3>
+
+          <div className="w-40 h-px bg-[#d8cfc7] mx-auto mb-6"></div>
           <div className="grid md:grid-cols-3 gap-6 md:gap-8 max-w-4xl mx-auto">
             {/* Veil */}
             <div className="text-center p-4 md:p-6 bg-background rounded-lg">
@@ -247,9 +269,11 @@ export function Entourage() {
 
         {/* Flower girls */}
         <div>
-          <h3 className="text-center font-serif text-xl md:text-2xl text-foreground mb-6 md:mb-8">
+          <h3 className="text-center font-serif text-xl md:text-2xl text-foreground mb-6 md:mb-2">
             Flower Girls
           </h3>
+
+          <div className="w-40 h-px bg-[#d8cfc7] mx-auto mb-6"></div>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 max-w-3xl mx-auto">
             {flowerGirls.map((flower) => (
               <p key={flower.name} className="font-serif text-sm md:text-base text-foreground">
@@ -261,9 +285,11 @@ export function Entourage() {
 
         {/* Bearers */}
         <div>
-          <h3 className="text-center font-serif text-xl md:text-2xl text-foreground mb-6 md:mb-8">
+          <h3 className="text-center font-serif text-xl md:text-2xl text-foreground mb-6 md:mb-2">
             Bearers
           </h3>
+
+          <div className="w-40 h-px bg-[#d8cfc7] mx-auto mb-6"></div>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 max-w-3xl mx-auto">
             {bearers.map((bearer) => (
               <div key={bearer.name}>
