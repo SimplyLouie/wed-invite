@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { Cormorant_Garamond, Montserrat } from 'next/font/google'
+import { Cormorant_Garamond, Great_Vibes, Montserrat } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import './globals.css'
 
@@ -14,6 +14,12 @@ const montserrat = Montserrat({
   subsets: ["latin"],
   weight: ['300', '400', '500', '600'],
   variable: '--font-montserrat'
+})
+
+const greatVibes = Great_Vibes({ 
+  subsets: ["latin"],
+  weight: '400',
+  variable: '--font-great-vibes'
 })
 
 export const metadata: Metadata = {
@@ -45,7 +51,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className={`${cormorant.variable} ${montserrat.variable} bg-background`}>
+    <html lang="en" className={`${cormorant.variable} ${montserrat.variable} ${greatVibes.variable} bg-background`}>
       <body className="font-serif antialiased">
         {children}
         {process.env.NODE_ENV === 'production' && <Analytics />}
