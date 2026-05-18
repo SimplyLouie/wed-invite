@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
+import Image from "next/image"
 import { Menu, X } from "lucide-react"
 import { cn } from "@/lib/utils"
 
@@ -40,11 +41,18 @@ export function Navigation() {
         <a
           href="#home"
           className={cn(
-            "text-2xl font-semibold tracking-wide transition-colors",
+            "flex items-center justify-center transition-colors",
             isScrolled ? "text-foreground" : "text-white"
           )}
         >
-          J & C
+          <Image
+            src="/images/logo.svg"
+            alt="John Mark and Chezza"
+            width={80}
+            height={80}
+            className="w-12 h-12 md:w-16 md:h-16 lg:w-20 lg:h-20 object-contain"
+            priority
+          />
         </a>
 
         {/* Desktop Navigation */}
@@ -81,7 +89,7 @@ export function Navigation() {
       <div
         className={cn(
           "md:hidden absolute top-full left-0 right-0 bg-background/98 backdrop-blur-md transition-all duration-300 overflow-hidden",
-          isMobileMenuOpen ? "max-h-96 border-b border-border" : "max-h-0"
+          isMobileMenuOpen ? "max-h-150 border-b border-border" : "max-h-0"
         )}
       >
         <ul className="container mx-auto px-6 py-4 flex flex-col gap-4">
