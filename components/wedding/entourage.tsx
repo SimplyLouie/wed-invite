@@ -55,8 +55,9 @@ const primarySponsors: EntourageMember[] = [
 
 const secondarySponsors = {
   veil: ["Mr. Vincy Ceniza", "Mrs. Orje Marey Ceniza"],
-  cord: ["Mr. Ricardo Torres", "Mrs. Sofia Reyes"],
-  candle: ["Mr. Charles Bott", "Mrs. Charmie Sheen Bott"],
+  cord: ["Mr. Charles Bott", "Mrs. Charmie Sheen Bott"],
+  candle: ["Mr. Ricardo Torres", "Mrs. Sofia Reyes"],
+  
 }
 
 const flowerGirls: EntourageMember[] = [
@@ -235,7 +236,7 @@ export function Entourage() {
                 Veil Sponsors
               </h4>
               {secondarySponsors.veil.map((name) => (
-                <p key={name} className="font-serif text-sm md:text-base text-foreground mb-1">
+                <p key={name} className="font-serif text-lg md:text-base text-foreground mb-1">
                   {name}
                 </p>
               ))}
@@ -247,7 +248,7 @@ export function Entourage() {
                 Cord Sponsors
               </h4>
               {secondarySponsors.cord.map((name) => (
-                <p key={name} className="font-serif text-sm md:text-base text-foreground mb-1">
+                <p key={name} className="font-serif text-lg md:text-base text-foreground mb-1">
                   {name}
                 </p>
               ))}
@@ -259,7 +260,7 @@ export function Entourage() {
                 Candle Sponsors
               </h4>
               {secondarySponsors.candle.map((name) => (
-                <p key={name} className="font-serif text-sm md:text-base text-foreground mb-1">
+                <p key={name} className="font-serif text-lg md:text-base text-foreground mb-1">
                   {name}
                 </p>
               ))}
@@ -268,7 +269,7 @@ export function Entourage() {
         </div>
 
         {/* Flower girls */}
-        <div>
+        <div className="mb-12 md:mb-16">
           <h3 className="text-center font-serif text-xl md:text-2xl text-foreground mb-2 md:mb-4">
             Flower Girls
           </h3>
