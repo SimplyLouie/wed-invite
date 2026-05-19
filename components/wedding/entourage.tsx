@@ -91,6 +91,7 @@ function EntourageSide({
       </h3>
 
       <div className="w-40 h-px bg-[#d8cfc7] mx-auto mb-3"></div>
+      <div className="text-center p-4 md:p-6 bg-background rounded-lg">
       <div className="grid gap-6">
        { <div className="mx-auto max-w-xs">
           <p className="font-cursive text-2xl md:text-1xl text-accent italic">
@@ -109,7 +110,7 @@ function EntourageSide({
                 key={member.name}
                 className={`text-center ${isLastOddItem ? "col-span-2 justify-self-center max-w-xs" : ""}`}
               >
-                <p className="text-[#8C6A5D] text-sm tracking-[0.2em] italic mt-1">
+                <p className="text-accent text-sm tracking-[0.2em] italic mt-1">
                   {member.role}
                 </p>
                 <p className="font-cursive text-lg md:text-xl text-foreground mt-1">
@@ -119,6 +120,7 @@ function EntourageSide({
             )
           })}
         </div>
+      </div>
       </div>
     </div>
   )
@@ -146,10 +148,11 @@ export function Entourage() {
           </h3>
           
               <div className="w-40 h-px bg-[#d8cfc7] mx-auto mb-3"></div>
+              <div className="text-center p-4 md:p-6 bg-background rounded-lg">
               <div className="text-center">
                 {GroomsParents.map((parent) => (
                       <div key={parent.name}>
-                        <p className="text-sm md:text-base italic text-[#8C6A5D] mt-1">
+                        <p className="text-sm md:text-base italic text-accent mt-1">
                           {parent.role}
                         </p>
 
@@ -158,6 +161,7 @@ export function Entourage() {
                         </p>
                     </div>
                       ))}
+              </div>
             </div>
         </div>
 
@@ -168,10 +172,11 @@ export function Entourage() {
           </h3>
           
           <div className="w-40 h-px bg-[#d8cfc7] mx-auto mb-3"></div>
+          <div className="text-center p-4 md:p-6 bg-background rounded-lg">
               <div className="text-center">
                 {BridesParents.map((parent) => (
                       <div key={parent.name}>
-                        <p className="text-sm md:text-base italic text-[#8C6A5D] mt-1">
+                        <p className="text-sm md:text-base italic text-accent mt-1">
                           {parent.role}
                         </p>
 
@@ -180,6 +185,7 @@ export function Entourage() {
                         </p>                
                     </div>
                       ))}
+            </div>
             </div>
         </div>
 
@@ -221,7 +227,7 @@ export function Entourage() {
             Secondary Sponsors
           </h3>
 
-          <div className="w-40 h-px bg-[#d8cfc7] mx-auto mb-6"></div>
+          <div className="w-40 h-px bg-[#d8cfc7] mx-auto mb-4"></div>
           <div className="grid md:grid-cols-3 gap-6 md:gap-8 max-w-4xl mx-auto">
             {/* Veil */}
             <div className="text-center p-4 md:p-6 bg-background rounded-lg">
@@ -267,7 +273,7 @@ export function Entourage() {
             Flower Girls
           </h3>
 
-          <div className="w-40 h-px bg-[#d8cfc7] mx-auto mb-6"></div>
+          <div className="w-40 h-px bg-[#d8cfc7] mx-auto mb-4"></div>
              <div className="text-center p-4 md:p-6 bg-background rounded-lg">
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 max-w-3xl mx-auto">
                   {flowerGirls.map((flower) => (
@@ -285,11 +291,12 @@ export function Entourage() {
             Bearers
           </h3>
 
-          <div className="w-40 h-px bg-[#d8cfc7] mx-auto mb-6"></div>
+          <div className="w-40 h-px bg-[#d8cfc7] mx-auto mb-4"></div>
+          <div className="text-center p-4 md:p-6 bg-background rounded-lg">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 max-w-3xl mx-auto">
             {bearers.map((bearer) => (
               <div key={bearer.name}>
-                        <p className="text-sm md:text-base italic text-[#8C6A5D] mt-1">
+                        <p className="text-sm md:text-base italic text-accent mt-1">
                           {bearer.role}
                         </p>
 
@@ -299,6 +306,7 @@ export function Entourage() {
                     </div>
             ))}
           </div>
+        </div>
         </div>
       </div>
     </section>
