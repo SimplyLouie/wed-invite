@@ -6,7 +6,7 @@ export function Details() {
   return (
     <section id="details" className="py-24 md:py-32 bg-secondary/30 relative overflow-hidden">
       {/* Decorative background elements */}
-      <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-border to-transparent" />
+      <div className="absolute top-0 left-0 w-full h-px bg-linear-to-r from-transparent via-border to-transparent" />
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-secondary opacity-50 rounded-full blur-3xl pointer-events-none -z-10" />
 
       <div className="container mx-auto px-6 relative z-10">
@@ -34,7 +34,7 @@ export function Details() {
               <p>SM Seaside Complex</p>
               <p>Cebu City, Philippines</p>
             </div>
-            <div className="w-full aspect-[4/3] md:aspect-video lg:aspect-[4/3] rounded-2xl overflow-hidden shadow-md border border-border/50 bg-muted relative group-hover:shadow-lg transition-shadow duration-500">
+            <div className="w-full aspect-4/3 md:aspect-video lg:aspect-4/3 rounded-2xl overflow-hidden shadow-md border border-border/50 bg-background relative group-hover:shadow-lg transition-shadow duration-500">
               <iframe
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3925.864778107954!2d123.87834787502446!3d10.27851608985141!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x33a99b4566d87e07%3A0x633d98031e13b860!2sChapel%20of%20San%20Pedro%20Calungsod!5e0!3m2!1sen!2sph!4v1715785200000!5m2!1sen!2sph"
                 width="100%"
@@ -44,7 +44,7 @@ export function Details() {
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
                 title="Ceremony Location: Chapel of San Pedro Calungsod"
-                className="grayscale opacity-90 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700"
+                className="grayscale group-hover:grayscale-0 transition-all duration-700"
               />
             </div>
           </div>
@@ -60,7 +60,7 @@ export function Details() {
               <p>Nivel Hills, Cebu City</p>
               <p>6000 Cebu, Philippines</p>
             </div>
-            <div className="w-full aspect-[4/3] md:aspect-video lg:aspect-[4/3] rounded-2xl overflow-hidden shadow-md border border-border/50 bg-muted relative group-hover:shadow-lg transition-shadow duration-500">
+            <div className="w-full aspect-4/3 md:aspect-video lg:aspect-4/3 rounded-2xl overflow-hidden shadow-md border border-border/50 bg-background relative group-hover:shadow-lg transition-shadow duration-500">
               <iframe
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3925.3674681605335!2d123.89679657478652!3d10.334645289766952!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x33a999741e57147b%3A0x6e788c03973c7340!2sMarco%20Polo%20Plaza%20Cebu!5e0!3m2!1sen!2sph!4v1715777777777!5m2!1sen!2sph"
                 width="100%"
@@ -70,7 +70,7 @@ export function Details() {
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
                 title="Reception Location: Marco Polo Plaza Cebu"
-                className="grayscale opacity-90 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700"
+                className="grayscale group-hover:grayscale-0 transition-all duration-700"
               />
             </div>
           </div>
