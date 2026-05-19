@@ -135,7 +135,7 @@ export function Entourage() {
           <p className="text-accent text-xs md:text-sm tracking-[0.3em] uppercase mb-3">
             The Wedding Party
           </p>
-          <h2 className="text-3xl md:text-5xl font-cursive text-foreground mb-4">
+          <h2 className="text-3xl md:text-5xl font-cursive text-foreground mb-2 md:mb-4">
             The Entourage
           </h2>
           <div className="w-16 md:w-24 h-px bg-[#d8cfc7] mx-auto" />
@@ -143,7 +143,7 @@ export function Entourage() {
 
         {/* Groom's Parents */}
         <div className="mb-12 md:mb-16">
-          <h3 className="text-center font-cursive text-2xl md:text-4xl text-[#8C6A5D] mb-4 md:mb-8">
+          <h3 className="text-center font-cursive text-2xl md:text-4xl text-[#8C6A5D] mb-2 md:mb-4">
             Groom's Parents
           </h3>
           
@@ -167,7 +167,7 @@ export function Entourage() {
 
         {/* Bride's Parents */}
         <div className="mb-12 md:mb-16">
-          <h3 className="text-center font-cursive text-2xl md:text-4xl text-[#8C6A5D] mb-4 md:mb-8">
+          <h3 className="text-center font-cursive text-2xl md:text-4xl text-[#8C6A5D] mb-2 md:mb-4">
             Bride's Parents
           </h3>
           
@@ -191,7 +191,7 @@ export function Entourage() {
 
         {/* Principal Sponsors */}
         <div className="mb-12 md:mb-16">
-          <h3 className="text-center font-serif text-xl md:text-2xl text-foreground mb-4 md:mb-8">
+          <h3 className="text-center font-serif text-xl md:text-2xl text-foreground mb-2 md:mb-4">
             Principal Sponsors
           </h3>
           <div className="w-40 h-px bg-[#d8cfc7] mx-auto mb-3"></div>
@@ -223,7 +223,7 @@ export function Entourage() {
 
         {/* Secondary Sponsors */}
         <div className="mb-12 md:mb-16">
-          <h3 className="text-center font-serif text-xl md:text-2xl text-foreground mb-4 md:mb-2">
+          <h3 className="text-center font-serif text-xl md:text-2xl text-foreground mb-2 md:mb-4">
             Secondary Sponsors
           </h3>
 
@@ -269,7 +269,7 @@ export function Entourage() {
 
         {/* Flower girls */}
         <div>
-          <h3 className="text-center font-serif text-xl md:text-2xl text-foreground mb-4 md:mb-2">
+          <h3 className="text-center font-serif text-xl md:text-2xl text-foreground mb-2 md:mb-4">
             Flower Girls
           </h3>
 
@@ -287,7 +287,7 @@ export function Entourage() {
 
         {/* Bearers */}
         <div>
-          <h3 className="text-center font-serif text-xl md:text-2xl text-foreground mb-4 md:mb-2">
+          <h3 className="text-center font-serif text-xl md:text-2xl text-foreground mb-2 md:mb-4">
             Bearers
           </h3>
 
