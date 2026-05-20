@@ -4,11 +4,11 @@ import { useState } from "react";
 import { Check } from "lucide-react";
 
 const greenShades = [
-  { name: "Sage", hex: "#9CAF88" },
-  { name: "Olive", hex: "#708238" },
-  { name: "Forest", hex: "#228B22" },
-  { name: "Emerald", hex: "#50C878" },
-  { name: "Moss", hex: "#8A9A5B" },
+  { name: "Celadon", hex: "#B7C8A6" },
+  { name: "Eucalyptus", hex: "#A8B89A" },
+  { name: "Sage Green", hex: "#9CAF88" },
+  { name: "Dusty Green", hex: "#8FA37D" },
+  { name: "Olive", hex: "#7F8F6E" },
 ];
 
 type Shade = {
