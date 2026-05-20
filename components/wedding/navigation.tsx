@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react"
 import Image from "next/image"
 import Link from "next/link"
-import { Menu, X } from "lucide-react"
+import { Menu, X, Heart, MapPin } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { usePathname } from "next/navigation"
 
@@ -106,20 +106,45 @@ export function Navigation() {
       >
         <div className="container mx-auto px-6 py-6 flex flex-col">
           {/* Mobile Header Row: RSVP and Find Seat */}
-          <div className="flex items-center gap-4 pb-6 mb-6 border-b border-border/50">
+          <div className="flex flex-col gap-3 pb-7 mb-6 border-b border-border/50">
+            {/* RSVP — filled warm gradient */}
             <Link
               href={rsvpLink.href}
               onClick={() => setIsMobileMenuOpen(false)}
-              className="flex-1 text-center py-3 rounded-full border border-primary/40 text-primary font-(family-name:--font-montserrat) tracking-[0.15em] uppercase text-xs transition-all duration-300 active:bg-primary active:text-primary-foreground"
+              className="group relative flex items-center justify-center gap-2.5 py-4 overflow-hidden transition-all duration-300 active:scale-[0.98]"
+              style={{
+                background: "linear-gradient(135deg, lab(57% 51.78 -8.6), lab(44% 51.78 -8.6))",
+                boxShadow: "0 4px 20px lab(51.93% 51.78 -8.6 / 0.30), inset 0 1px 0 oklch(1 0 0 / 0.10)",
+              }}
             >
-              {rsvpLink.label}
+              {/* shimmer sweep */}
+              <span
+                aria-hidden="true"
+                className="pointer-events-none absolute inset-0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 ease-in-out"
+                style={{
+                  background: "linear-gradient(90deg, transparent, oklch(1 0 0 / 0.08), transparent)",
+                }}
+              />
+              <Heart size={11} strokeWidth={1.5} className="text-primary-foreground/70 shrink-0" />
+              <span className="font-(family-name:--font-montserrat) tracking-[0.3em] uppercase text-[9px] text-primary-foreground">
+                {rsvpLink.label}
+              </span>
             </Link>
+
+            {/* Find Seat — outlined glassmorphism */}
             <Link
               href={seatFinderLink.href}
               onClick={() => setIsMobileMenuOpen(false)}
-              className="flex-1 text-center py-3 rounded-full border border-primary/40 text-primary font-(family-name:--font-montserrat) tracking-[0.15em] uppercase text-xs transition-all duration-300 active:bg-primary active:text-primary-foreground"
+              className="flex items-center justify-center gap-2.5 py-4 backdrop-blur-sm transition-all duration-300 hover:bg-primary/5 active:scale-[0.98]"
+              style={{
+                border: "1px solid oklch(0.35 0.05 30 / 0.25)",
+                boxShadow: "inset 0 1px 0 oklch(1 0 0 / 0.6)",
+              }}
             >
-              {seatFinderLink.label}
+              <MapPin size={11} strokeWidth={1.5} className="text-primary/60 shrink-0" />
+              <span className="font-(family-name:--font-montserrat) tracking-[0.3em] uppercase text-[9px] text-primary">
+                {seatFinderLink.label}
+              </span>
             </Link>
           </div>
           
