@@ -15,18 +15,17 @@ const navLinks = [
   { href: "/#attire", label: "Attire" },
   { href: "/#timeline", label: "Timeline" },
   { href: "/#gallery", label: "Gallery" },
-  { href: "/#rsvp", label: "RSVP" },
   { href: "/#faq", label: "FAQ" },
-  { href: "/seat-finder", label: "Find Seat" },
 ]
+
+const rsvpLink = { href: "/#rsvp", label: "RSVP" }
+const seatFinderLink = { href: "/seat-finder", label: "Find Seat" }
 
 export function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const pathname = usePathname()
   
-  // If we're not on the main page, we might want the nav to always have a solid background
-  // Or at least have the text be dark so it's visible.
   const isAltPage = pathname !== "/"
 
   useEffect(() => {
@@ -70,7 +69,7 @@ export function Navigation() {
 
         {/* Desktop Navigation */}
         <ul className="hidden md:flex items-center gap-8">
-          {navLinks.map((link) => (
+          {[...navLinks, rsvpLink, seatFinderLink].map((link) => (
             <li key={link.href}>
               <Link
                 href={link.href}
@@ -85,7 +84,7 @@ export function Navigation() {
           ))}
         </ul>
 
-        {/* Mobile Menu Button */}
+        {/* Mobile Menu Toggle Button */}
         <button
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           className={cn(
@@ -102,22 +101,42 @@ export function Navigation() {
       <div
         className={cn(
           "md:hidden absolute top-full left-0 right-0 bg-background/98 backdrop-blur-md transition-all duration-300 overflow-hidden",
-          isMobileMenuOpen ? "max-h-150 border-b border-border" : "max-h-0"
+          isMobileMenuOpen ? "max-h-screen border-b border-border" : "max-h-0"
         )}
       >
-        <ul className="container mx-auto px-6 py-4 flex flex-col gap-4">
-          {navLinks.map((link) => (
-            <li key={link.href}>
-              <Link
-                href={link.href}
-                onClick={() => setIsMobileMenuOpen(false)}
-                className="block text-sm tracking-[0.2em] uppercase font-(family-name:--font-montserrat) text-foreground hover:text-accent transition-colors py-2"
-              >
-                {link.label}
-              </Link>
-            </li>
-          ))}
-        </ul>
+        <div className="container mx-auto px-6 py-6 flex flex-col">
+          {/* Mobile Header Row: RSVP and Find Seat */}
+          <div className="flex items-center gap-4 pb-6 mb-6 border-b border-border/50">
+            <Link
+              href={rsvpLink.href}
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="flex-1 text-center py-3 rounded-full border border-primary/40 text-primary font-(family-name:--font-montserrat) tracking-[0.15em] uppercase text-xs transition-all duration-300 active:bg-primary active:text-primary-foreground"
+            >
+              {rsvpLink.label}
+            </Link>
+            <Link
+              href={seatFinderLink.href}
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="flex-1 text-center py-3 rounded-full border border-primary/40 text-primary font-(family-name:--font-montserrat) tracking-[0.15em] uppercase text-xs transition-all duration-300 active:bg-primary active:text-primary-foreground"
+            >
+              {seatFinderLink.label}
+            </Link>
+          </div>
+          
+          <ul className="flex flex-col gap-4">
+            {navLinks.map((link) => (
+              <li key={link.href}>
+                <Link
+                  href={link.href}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="block text-sm tracking-[0.2em] uppercase font-(family-name:--font-montserrat) text-foreground hover:text-accent transition-colors py-2"
+                >
+                  {link.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     </header>
   )
