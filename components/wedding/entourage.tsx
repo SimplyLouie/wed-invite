@@ -6,6 +6,10 @@ interface EntourageMember {
   
 }
 
+interface Sponsor {
+  name: string
+}
+
 const GroomsParents: EntourageMember[] = [
   { name: "Glen Abad", role: "Father" },
   { name: "Sarah Abad", role: "Mother" },
@@ -38,23 +42,23 @@ const groomsSide: EntourageMember[] = [
   { name: "James Vincent Abad", role: "Groomsman" },
 ]
 
-const primarySponsors: EntourageMember[] = [
-  { name: "Mr. Elson Manlunas & Mrs. Fe Manlunas", role: "" },
-  { name: "Mr. Eric Esconde & Mrs. Mary Grace Esconde", role: "" },
-  { name: "Mr. Dante Argallon & Mrs. Arlene Argallon", role: "" },
-  { name: "Mr. Junrey Bartolabac & Mrs. Rowena Bartolabac", role: "" },
-  { name: "Mr. Engr. Paul Bugarin & Mrs. Mira Bugarin", role: "" },
-  { name: "Mr. Kap Alley Berdin & Mrs. Victoria Gerra", role: "" },
-  { name: "Mr. Allan Caballero & Mrs. Engr. Criselda Caballero", role: "" },
-  { name: "Mr. Jeson Agosto & Mrs. Elmarie Agosto", role: "" },
-  { name: "Mr. Eduardo Pino & Mrs. Myrna Ybañez", role: "" },
+const primarySponsors: Sponsor[] = [
+  { name: "Mr. Elson Manlunas & Mrs. Fe Manlunas" },
+  { name: "Mr. Eric Esconde & Mrs. Mary Grace Esconde" },
+  { name: "Mr. Dante Argallon & Mrs. Arlene Argallon" },
+  { name: "Mr. Junrey Bartolabac & Mrs. Rowena Bartolabac" },
+  { name: "Mr. Engr. Paul Bugarin & Mrs. Mira Bugarin" },
+  { name: "Mr. Kap Alley Berdin & Mrs. Victoria Gerra" },
+  { name: "Mr. Allan Caballero & Mrs. Engr. Criselda Caballero" },
+  { name: "Mr. Jeson Agosto & Mrs. Elmarie Agosto" },
+  { name: "Mr. Eduardo Pino & Mrs. Myrna Ybañez" },
 
 ]
 
 const secondarySponsors = {
   veil: ["Mr. Vincy Ceniza", "Mrs. Orje Marey Ceniza"],
   cord: ["Mr. Charles Bott", "Mrs. Charmie Sheen Bott"],
-  candle: ["Mr. Ricardo Torres", "Mrs. Sofia Reyes"],
+  candle: ["Mr. Louie Mendez", "Mrs. Florie Mae Mendez"],
   
 }
 
@@ -230,7 +234,7 @@ export function Entourage() {
           <div className="grid md:grid-cols-3 gap-6 md:gap-8 max-w-4xl mx-auto">
             {/* Veil */}
             <div className="text-center p-4 md:p-6 bg-background rounded-lg">
-              <h4 className="text-accent text-xs tracking-[0.2em] uppercase mb-3 md:mb-4">
+              <h4 className="text-muted text-xs tracking-[0.2em] uppercase mb-3 md:mb-4">
                 Veil Sponsors
               </h4>
               {secondarySponsors.veil.map((name) => (
@@ -242,7 +246,7 @@ export function Entourage() {
 
             {/* Cord */}
             <div className="text-center p-4 md:p-6 bg-background rounded-lg">
-              <h4 className="text-accent text-xs tracking-[0.2em] uppercase mb-3 md:mb-4">
+              <h4 className="text-muted text-xs tracking-[0.2em] uppercase mb-3 md:mb-4">
                 Cord Sponsors
               </h4>
               {secondarySponsors.cord.map((name) => (
@@ -254,7 +258,7 @@ export function Entourage() {
 
             {/* Candle */}
             <div className="text-center p-4 md:p-6 bg-background rounded-lg">
-              <h4 className="text-accent text-xs tracking-[0.2em] uppercase mb-3 md:mb-4">
+              <h4 className="text-muted text-xs tracking-[0.2em] uppercase mb-3 md:mb-4">
                 Candle Sponsors
               </h4>
               {secondarySponsors.candle.map((name) => (
