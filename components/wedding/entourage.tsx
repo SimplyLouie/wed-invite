@@ -234,7 +234,7 @@ export function Entourage() {
           <div className="grid md:grid-cols-3 gap-6 md:gap-8 max-w-4xl mx-auto">
             {/* Veil */}
             <div className="text-center p-4 md:p-6 bg-background rounded-lg">
-              <h4 className="text-accent text-xs tracking-[0.2em] uppercase mb-3 md:mb-4">
+              <h4 className="text-muted text-xs tracking-[0.2em] uppercase mb-3 md:mb-4">
                 Veil Sponsors
               </h4>
               {secondarySponsors.veil.map((name) => (
@@ -246,7 +246,7 @@ export function Entourage() {
 
             {/* Cord */}
             <div className="text-center p-4 md:p-6 bg-background rounded-lg">
-              <h4 className="text-accent text-xs tracking-[0.2em] uppercase mb-3 md:mb-4">
+              <h4 className="text-muted text-xs tracking-[0.2em] uppercase mb-3 md:mb-4">
                 Cord Sponsors
               </h4>
               {secondarySponsors.cord.map((name) => (
@@ -258,7 +258,7 @@ export function Entourage() {
 
             {/* Candle */}
             <div className="text-center p-4 md:p-6 bg-background rounded-lg">
-              <h4 className="text-accent text-xs tracking-[0.2em] uppercase mb-3 md:mb-4">
+              <h4 className="text-muted text-xs tracking-[0.2em] uppercase mb-3 md:mb-4">
                 Candle Sponsors
               </h4>
               {secondarySponsors.candle.map((name) => (
