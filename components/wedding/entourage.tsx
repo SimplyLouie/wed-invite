@@ -138,8 +138,8 @@ export function Entourage() {
           <p className="text-blushpink text-xs md:text-sm tracking-[0.3em] uppercase mb-3">
             The Wedding Party
           </p>
-          <h2 className="text-3xl md:text-5xl font-cursive text-foreground mb-2 md:mb-4">
-            The Entourage
+          <h2 className="text-4xl md:text-5xl font-cursive text-foreground mb-2 md:mb-4">
+            Our Entourage
           </h2>
           <div className="w-16 md:w-24 h-px bg-[#d8cfc7] mx-auto" />
         </div>
