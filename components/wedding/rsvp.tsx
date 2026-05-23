@@ -18,7 +18,6 @@ export function RSVP() {
     email: "",
     attendance: "yes",
     guests: "1",
-    dietary: "",
     message: "",
   })
 
