@@ -13,30 +13,33 @@ export function MusicPlayer() {
     const audio = audioRef.current
     if (!audio) return
 
-    // AUTO PLAY WHEN WEBSITE LOADS
-    audio.play()
-      .then(() => {
-        setIsPlaying(true)
-      })
-      .catch(() => {
-        console.log("Autoplay blocked by browser")
-
-        // Retry after first interaction
+        // START MUSIC FUNCTION
+        // This handles both autoplay and fallback play
         const startMusic = async () => {
           try {
+            // Try to play audio
             await audio.play()
+
+            // Update UI to show music is playing
             setIsPlaying(true)
           } catch (err) {
-            console.log("Still blocked")
+            // Browser blocked autoplay
+            console.log("Autoplay blocked by browser")
           }
-
-          document.removeEventListener("click", startMusic)
-          document.removeEventListener("touchstart", startMusic)
         }
 
-        document.addEventListener("click", startMusic)
-        document.addEventListener("touchstart", startMusic)
-      })
+        // TRY AUTOPLAY IMMEDIATELY
+        // Works on desktop and some mobile browsers
+        startMusic()
+
+        // FALLBACK FOR MOBILE / PRODUCTION
+        // If autoplay is blocked, music starts
+        // on the user's first interaction
+        document.addEventListener("click", startMusic, 
+          {once: true,})
+
+        document.addEventListener("touchstart", startMusic,
+          {once: true })
 
     const handleCanPlay = () => setIsLoaded(true)
     const handleEnded = () => {
@@ -51,8 +54,12 @@ export function MusicPlayer() {
     return () => {
       audio.removeEventListener("canplaythrough", handleCanPlay)
       audio.removeEventListener("ended", handleEnded)
-    }
-  }, [])
+        // CLEANUP EVENT LISTENERS
+        // Prevent memory leaks
+      document.removeEventListener("click", startMusic)
+      document.removeEventListener("touchstart", startMusic)
+          }
+        }, [])
 
   const togglePlay = () => {
     const audio = audioRef.current
@@ -75,10 +82,10 @@ export function MusicPlayer() {
       <audio
         ref={audioRef}
         src="/new_song.mp3" /* Change here your new song*/
-        preload="auto"
-        autoPlay
-        loop
-        playsInline
+        preload="auto" // Load audio early
+        autoPlay // Try autoplay
+        loop // Repeat forever
+        playsInline // Better mobile support
       />
 
       {/* Floating music button */}
