@@ -68,7 +68,7 @@ export function RSVP() {
                   <a
                     href="/seat-finder"
                     className="
-                      inline-flex items-center justify-center
+                      inline-flex items-center justify-center mt-8
                       px-8 py-4
                       rounded-full
                       bg-accent
