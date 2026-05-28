@@ -11,6 +11,7 @@ import { Check } from "lucide-react"
 
 export function RSVP() {
   const [submitted, setSubmitted] = useState(false)
+  const [submitError, setSubmitError] = useState("")
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [formData, setFormData] = useState({
@@ -23,6 +24,7 @@ export function RSVP() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    setSubmitError("")
     setIsSubmitting(true)
     setError(null)
 
@@ -36,8 +38,9 @@ export function RSVP() {
       })
 
       const data = await response.json()
-      if (!response.ok || !data.success) {
-        throw new Error(data.error || "Failed to submit RSVP. Please try again.")
+        if (!response.ok || !data.success) {
+        setSubmitError(data.error || "Failed to submit RSVP. Please try again.")
+        return
       }
 
       setSubmitted(true)
@@ -225,6 +228,14 @@ export function RSVP() {
               >
                 {isSubmitting ? "Sending..." : "Send RSVP"}
               </Button>
+
+              {submitError && (
+              <div className="mt-4 rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-center">
+                <p className="text-sm text-red-500 whitespace-pre-line">
+                  {submitError}
+                </p>
+              </div>
+            )}
             </form>
           </CardContent>
         </Card>
