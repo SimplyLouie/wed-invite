@@ -63,6 +63,27 @@ export function RSVP() {
             <p className="text-muted-foreground font-(family-name:--font-montserrat)">
               Your RSVP has been received. We can&apos;t wait to celebrate with you!
             </p>
+            
+                {/* Find Seat Button */}
+                  <a
+                    href="/seat-finder"
+                    className="
+                      inline-flex items-center justify-center
+                      px-8 py-4
+                      rounded-full
+                      bg-accent
+                      text-white
+                      font-medium tracking-wide
+                      shadow-md
+                      transition-all duration-300
+                      hover:scale-105 hover:shadow-lg
+                      hover:bg-accent/90
+                    "
+                  >
+                    Find Seat
+                  </a>
+
+
           </div>
         </div>
       </section>

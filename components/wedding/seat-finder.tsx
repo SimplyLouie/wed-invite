@@ -196,22 +196,46 @@ export function SeatFinder() {
                     >
                       {guest.fullName}!
                     </motion.p>
-                    
+                    {/* Table Assignment card */}
                     <motion.div
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.5 }}
-                      className="inline-block"
-                    >
-                      <p className="text-muted-foreground mb-2">
-                        You are assigned to
-                      </p>
-                      <div className="bg-primary/10 rounded-2xl px-8 py-4 border border-primary/20">
-                        <span className="text-3xl font-bold tracking-wide text-primary">
-                          Table {guest.table.padStart(2, '0')}
-                        </span>
-                      </div>
-                    </motion.div>
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.5 }}
+                        className="inline-block"
+                      >
+                        {guest.table ? (
+                          <>
+                            <p className="text-muted-foreground mb-2">
+                              You are assigned to:
+                            </p>
+
+                            <div className="bg-primary/10 rounded-2xl px-8 py-4 border border-primary/20">
+                              <span className="text-3xl font-bold tracking-wide text-primary">
+                                Table {guest.table.padStart(2, '0')}
+                              </span>
+                            </div>
+                          </>
+                        ) : (
+                          <div className="max-w-md mx-auto">
+                            <div className="bg-primary/5 rounded-2xl px-6 py-5 border border-primary/20">
+                              <p className="text-foreground font-medium mb-2">
+                                No Table Assignment Yet
+                              </p>
+
+                              <p className="text-muted-foreground text-sm leading-relaxed">
+                                There is no assigned table at the moment.
+                                Kindly wait for further updates.
+                              </p>
+
+                              <p className="text-muted-foreground text-sm leading-relaxed mt-2">
+                                If you have not been assigned a table yet,
+                                please feel free to reach out to us.
+                                Thank you.
+                              </p>
+                            </div>
+                          </div>
+                        )}
+                      </motion.div>
                   </CardContent>
                 </Card>
               </motion.div>

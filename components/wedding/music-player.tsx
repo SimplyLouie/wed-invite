@@ -9,30 +9,24 @@ export function MusicPlayer() {
   const [isLoaded, setIsLoaded] = useState(false)
   const audioRef = useRef<HTMLAudioElement>(null)
 
-  useEffect(() => {
-          const audio = audioRef.current
-          if (!audio) return
+   useEffect(() => {
+    const audio = audioRef.current
+    if (!audio) return
 
-          // AUTO PLAY WHEN WEBSITE LOADS
-        audio.play().catch(() => {
-          console.log("Autoplay blocked by browser")
-        })
-        setIsPlaying(true)
+    const handleCanPlay = () => setIsLoaded(true)
+    const handleEnded = () => {
+      // Loop the audio
+      audio.currentTime = 0
+      audio.play()
+    }
 
-          const handleCanPlay = () => setIsLoaded(true)
-          const handleEnded = () => {
-            // Loop the audio
-            audio.currentTime = 0
-            audio.play()
-          }
+    audio.addEventListener("canplaythrough", handleCanPlay)
+    audio.addEventListener("ended", handleEnded)
 
-          audio.addEventListener("canplaythrough", handleCanPlay)
-          audio.addEventListener("ended", handleEnded)
-
-          return () => {
-            audio.removeEventListener("canplaythrough", handleCanPlay)
-            audio.removeEventListener("ended", handleEnded)
-          }
+    return () => {
+      audio.removeEventListener("canplaythrough", handleCanPlay)
+      audio.removeEventListener("ended", handleEnded)
+    }
   }, [])
 
   const togglePlay = () => {
