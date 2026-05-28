@@ -36,9 +36,11 @@ export function SeatFinder() {
   
   const [query, setQuery] = useState(initialGuest);
   const [results, setResults] = useState<Guest[]>([]);
+  const [selectedGuest, setSelectedGuest] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [hasSearched, setHasSearched] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
 
   const debouncedQuery = useDebounce(query, 300);
 
@@ -105,8 +107,33 @@ export function SeatFinder() {
             </div>
           )}
         </div>
-      </motion.div>
 
+        {/* Guest Suggestions Dropdown */}
+        {query.trim().length > 1 &&
+          results.length > 1 &&
+          !selectedGuest && (
+            <div className="mt-3 bg-background border border-border rounded-2xl shadow-lg overflow-hidden">
+              {results.map((guest) => (
+                <button
+                  key={guest.fullName}
+                  onClick={() => {
+                    setQuery(guest.fullName)
+                    setSelectedGuest(guest.fullName)
+                  }}
+                  className="
+                    w-full text-left px-5 py-4
+                    hover:bg-primary/5
+                    transition-colors
+                    border-b border-border last:border-0
+                  "
+                >
+                  {guest.fullName}
+                </button>
+              ))}
+            </div>
+        )}
+      </motion.div>
+    
       {/* Results */}
       <AnimatePresence mode="wait">
         {error ? (
@@ -145,7 +172,17 @@ export function SeatFinder() {
               </CardContent>
             </Card>
           </motion.div>
-        ) : results.length > 0 ? (
+
+          
+        ) : results.length > 0 &&
+  (
+    selectedGuest ||
+    results.some(
+      guest =>
+        guest.fullName.toLowerCase() ===
+        query.trim().toLowerCase()
+    )
+  ) ? (
           <motion.div
             key="results"
             initial={{ opacity: 0 }}
@@ -153,7 +190,11 @@ export function SeatFinder() {
             exit={{ opacity: 0 }}
             className="space-y-4"
           >
-            {results.map((guest, index) => (
+            {results.filter((guest) => {
+    // clicked suggestion
+    if (selectedGuest) {return guest.fullName === selectedGuest}
+    // exact full-name typed manually
+    return (guest.fullName.toLowerCase() === query.trim().toLowerCase())}).map((guest, index) => ( (
               <motion.div
                 key={`${guest.fullName}-${guest.table}`}
                 initial={{ opacity: 0, y: 20, scale: 0.95 }}
@@ -239,7 +280,7 @@ export function SeatFinder() {
                   </CardContent>
                 </Card>
               </motion.div>
-            ))}
+            )))}
           </motion.div>
         ) : !hasSearched && !isLoading ? (
           <motion.div
