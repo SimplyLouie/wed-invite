@@ -2,7 +2,8 @@
 
 import { useState } from "react"
 import Image from "next/image"
-import { X, ChevronLeft, ChevronRight } from "lucide-react"
+import { X, ChevronLeft, ChevronRight, ArrowRight } from "lucide-react"
+import Link from "next/link"
 import { cn } from "@/lib/utils"
 
 const galleryImages = [
@@ -65,6 +66,17 @@ export function Gallery() {
               <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300" />
             </button>
           ))}
+        </div>
+
+        {/* View Full Gallery Link */}
+        <div className="mt-16 text-center">
+          <Link
+            href="/gallery"
+            className="inline-flex items-center gap-2 text-sm tracking-[0.3em] uppercase font-(family-name:--font-montserrat) text-foreground hover:text-accent transition-colors group"
+          >
+            View Full Gallery
+            <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
+          </Link>
         </div>
       </div>
 

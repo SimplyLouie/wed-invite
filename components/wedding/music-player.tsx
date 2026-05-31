@@ -13,53 +13,42 @@ export function MusicPlayer() {
     const audio = audioRef.current
     if (!audio) return
 
-        // START MUSIC FUNCTION
-        // This handles both autoplay and fallback play
-        const startMusic = async () => {
-          try {
-            // Try to play audio
-            await audio.play()
-
-            // Update UI to show music is playing
-            setIsPlaying(true)
-          } catch (err) {
-            // Browser blocked autoplay
-            console.log("Autoplay blocked by browser")
-          }
-        }
-
-        // TRY AUTOPLAY IMMEDIATELY
-        // Works on desktop and some mobile browsers
-        startMusic()
-
-        // FALLBACK FOR MOBILE / PRODUCTION
-        // If autoplay is blocked, music starts
-        // on the user's first interaction
-        document.addEventListener("click", startMusic, 
-          {once: true,})
-
-        document.addEventListener("touchstart", startMusic,
-          {once: true })
-
-    const handleCanPlay = () => setIsLoaded(true)
-    const handleEnded = () => {
-      // Loop the audio
-      audio.currentTime = 0
-      audio.play()
+    const handleCanPlay = () => {
+      setIsLoaded(true)
+      // Attempt to play on load (browsers might block this)
+      audio.play().then(() => {
+        setIsPlaying(true)
+      }).catch(() => {
+        // Autoplay prevented
+        console.log("Autoplay prevented on load")
+      })
     }
 
     audio.addEventListener("canplaythrough", handleCanPlay)
-    audio.addEventListener("ended", handleEnded)
+
+    // Global click listener to start music on first interaction
+    const handleFirstInteraction = () => {
+      if (audio && audio.paused) {
+        audio.play().then(() => {
+          setIsPlaying(true)
+          window.removeEventListener("click", handleFirstInteraction)
+          window.removeEventListener("touchstart", handleFirstInteraction)
+          window.removeEventListener("scroll", handleFirstInteraction)
+        }).catch(() => {})
+      }
+    }
+
+    window.addEventListener("click", handleFirstInteraction)
+    window.addEventListener("touchstart", handleFirstInteraction)
+    window.addEventListener("scroll", handleFirstInteraction)
 
     return () => {
       audio.removeEventListener("canplaythrough", handleCanPlay)
-      audio.removeEventListener("ended", handleEnded)
-        // CLEANUP EVENT LISTENERS
-        // Prevent memory leaks
-      document.removeEventListener("click", startMusic)
-      document.removeEventListener("touchstart", startMusic)
-          }
-        }, [])
+      window.removeEventListener("click", handleFirstInteraction)
+      window.removeEventListener("touchstart", handleFirstInteraction)
+      window.removeEventListener("scroll", handleFirstInteraction)
+    }
+  }, [])
 
   const togglePlay = () => {
     const audio = audioRef.current
@@ -67,13 +56,14 @@ export function MusicPlayer() {
 
     if (isPlaying) {
       audio.pause()
+      setIsPlaying(false)
     } else {
-      audio.play().catch(() => {
-        // Autoplay was prevented, user needs to interact first
-        console.log("Autoplay prevented, waiting for user interaction")
+      audio.play().then(() => {
+        setIsPlaying(true)
+      }).catch(() => {
+        console.log("Play failed")
       })
     }
-    setIsPlaying(!isPlaying)
   }
 
   return (
@@ -82,10 +72,8 @@ export function MusicPlayer() {
       <audio
         ref={audioRef}
         src="/new_song.mp3" /* Change here your new song*/
-        preload="auto" // Load audio early
-        autoPlay // Try autoplay
-        loop // Repeat forever
-        playsInline // Better mobile support
+        preload="auto"
+        loop
       />
 
       {/* Floating music button */}

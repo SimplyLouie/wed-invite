@@ -11,6 +11,7 @@ import { Check } from "lucide-react"
 
 export function RSVP() {
   const [submitted, setSubmitted] = useState(false)
+  const [submitError, setSubmitError] = useState("")
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [formData, setFormData] = useState({
@@ -23,6 +24,7 @@ export function RSVP() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    setSubmitError("")
     setIsSubmitting(true)
     setError(null)
 
@@ -36,8 +38,9 @@ export function RSVP() {
       })
 
       const data = await response.json()
-      if (!response.ok || !data.success) {
-        throw new Error(data.error || "Failed to submit RSVP. Please try again.")
+        if (!response.ok || !data.success) {
+        setSubmitError(data.error || "Failed to submit RSVP. Please try again.")
+        return
       }
 
       setSubmitted(true)
@@ -63,6 +66,27 @@ export function RSVP() {
             <p className="text-muted-foreground font-(family-name:--font-montserrat)">
               Your RSVP has been received. We can&apos;t wait to celebrate with you!
             </p>
+            
+                {/* Find Seat Button */}
+                  <a
+                    href="/seat-finder"
+                    className="
+                      inline-flex items-center justify-center mt-8
+                      px-8 py-4
+                      rounded-full
+                      bg-accent
+                      text-white
+                      font-medium tracking-wide
+                      shadow-md
+                      transition-all duration-300
+                      hover:scale-105 hover:shadow-lg
+                      hover:bg-accent/90
+                    "
+                  >
+                    Find Seat
+                  </a>
+
+
           </div>
         </div>
       </section>
@@ -204,6 +228,14 @@ export function RSVP() {
               >
                 {isSubmitting ? "Sending..." : "Send RSVP"}
               </Button>
+
+              {submitError && (
+              <div className="mt-4 rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-center">
+                <p className="text-sm text-red-500 whitespace-pre-line">
+                  {submitError}
+                </p>
+              </div>
+            )}
             </form>
           </CardContent>
         </Card>
