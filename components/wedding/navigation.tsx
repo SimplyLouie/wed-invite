@@ -25,25 +25,25 @@ export function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const pathname = usePathname()
-  
+
   const isAltPage = pathname !== "/"
 
-useEffect(() => {
-  const handleScroll = () => {
-    setIsScrolled(window.scrollY > 50)
-  }
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50)
+    }
 
-  window.addEventListener("scroll", handleScroll)
+    window.addEventListener("scroll", handleScroll)
 
-  return () => {
-    window.removeEventListener("scroll", handleScroll)
-  }
-}, [])
+    return () => {
+      window.removeEventListener("scroll", handleScroll)
+    }
+  }, [])
 
   const navBgClass = isAltPage || isScrolled
     ? "bg-background/95 backdrop-blur-md shadow-sm py-2"
     : "bg-transparent py-3"
-    
+
   const textClass = isAltPage || isScrolled ? "text-foreground" : "text-white"
 
   return (
@@ -57,7 +57,7 @@ useEffect(() => {
         <Link
           href="/"
           scroll={true}
-          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}   
+          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
           className={cn(
             "flex items-center justify-center transition-colors shrink-0",
             textClass
@@ -83,11 +83,11 @@ useEffect(() => {
                 className={cn(
                   // "text-sm tracking-[0.2em] uppercase font-(family-name:--font-montserrat) transition-colors hover:text-accent",
                   // Make the tabs hover with underline animation, and if it's the active page, show the underline by default
-                    "relative inline-block text-sm tracking-[0.2em] uppercase font-(family-name:--font-montserrat) transition-colors hover:text-accent",
-                      "after:absolute after:left-1/2 after:-translate-x-1/2 after:-bottom-1 after:h-[1px] after:bg-current after:transition-all after:duration-300",
-                      pathname === link.href
-                        ? "after:w-full"
-                        : "after:w-0 hover:after:w-full",
+                  "relative inline-block text-sm tracking-[0.2em] uppercase font-(family-name:--font-montserrat) transition-colors hover:text-accent",
+                  "after:absolute after:left-1/2 after:-translate-x-1/2 after:-bottom-1 after:h-[1px] after:bg-current after:transition-all after:duration-300",
+                  pathname === link.href
+                    ? "after:w-full"
+                    : "after:w-0 hover:after:w-full",
                   textClass
                 )}
               >
@@ -102,7 +102,7 @@ useEffect(() => {
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           className={cn(
             "lg:hidden p-2 rounded-xl border border-transparent transition-all duration-300",
-           "hover:bg-accent/10 hover:border-accent/30 hover:text-accent active:scale-95",
+            "hover:bg-accent/10 hover:border-accent/30 hover:text-accent active:scale-95",
             textClass
           )}
           aria-label="Toggle menu"
@@ -115,7 +115,7 @@ useEffect(() => {
       <div
         className={cn(
           "lg:hidden absolute top-full left-0 right-0 bg-background/98 backdrop-blur-md transition-all duration-300 overflow-hidden",
-              isMobileMenuOpen
+          isMobileMenuOpen
             ? "max-h-[85vh] overflow-y-auto border-b border-border"
             : "max-h-0"
         )}
@@ -165,22 +165,22 @@ useEffect(() => {
               </span>
             </Link>
           </div>
-          
+
           {/* Scroll only the Home and below */}
           <div className="max-h-[45vh] overflow-y-auto pr-2">
-          <ul className="flex flex-col gap-4 pb-10">
-            {navLinks.map((link) => (
-              <li key={link.href}>
-                <Link
-                  href={link.href}
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className="group block w-full rounded-xl px-4 py-3 text-sm tracking-[0.2em] uppercase font-(family-name:--font-montserrat) text-foreground transition-all duration-300 border border-transparent hover:bg-accent/10 hover:border-accent/30 hover:text-accent active:bg-accent/10 active:border-accent/30 active:text-accent active:scale-[0.98]"
-                >
-                  {link.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
+            <ul className="flex flex-col gap-4 pb-10">
+              {navLinks.map((link) => (
+                <li key={link.href}>
+                  <Link
+                    href={link.href}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="group block w-full rounded-xl px-4 py-3 text-sm tracking-[0.2em] uppercase font-(family-name:--font-montserrat) text-foreground transition-all duration-300 border border-transparent hover:bg-accent/10 hover:border-accent/30 hover:text-accent active:bg-accent/10 active:border-accent/30 active:text-accent active:scale-[0.98]"
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
       </div>

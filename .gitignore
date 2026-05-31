@@ -60,3 +60,4 @@ submit-pr.sh
 
 .env.local
 .env
+design-system/
