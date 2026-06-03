@@ -133,7 +133,7 @@
 }
 
 
-
+/* Arrow Tick Animation @ Gallery full view */
 @keyframes arrowTick {
   0%, 100% {
     transform: translateX(0);
@@ -162,4 +162,46 @@
 
 .animate-arrowTick {
   animation: arrowTick 1.6s ease-in-out infinite;
+}
+
+/* Footer heartlogo */
+@keyframes heartBeat {
+  0%, 100% {
+    transform: scale(1);
+  }
+
+  14% {
+    transform: scale(1.18);
+  }
+
+  28% {
+    transform: scale(1);
+  }
+
+  42% {
+    transform: scale(1.18);
+  }
+
+  70% {
+    transform: scale(1);
+  }
+}
+
+.animate-heartBeat {
+  animation: heartBeat 2.2s ease-in-out infinite;
+}
+
+/* Footer button back to Top */
+@keyframes floatSoft {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-3px);
+  }
+}
+
+.animate-floatSoft {
+  animation: floatSoft 2.8s ease-in-out infinite;
 }
