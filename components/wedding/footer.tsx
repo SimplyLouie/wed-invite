@@ -32,7 +32,7 @@ export function Footer({
         </div>
         
         <h2 className="text-4xl md:text-5xl lg:text-6xl font-light mb-6">
-          John Mark & Chezza
+          John Mark <span className="text-accent">&</span> Chezza
         </h2>
         
         <p className="text-sm md:text-base tracking-[0.3em] uppercase font-(family-name:--font-montserrat) mb-12 text-primary-foreground/80">
@@ -42,7 +42,7 @@ export function Footer({
         <div className="flex items-center justify-center w-full max-w-sm mx-auto mb-12">
           <div className="h-px bg-linear-to-r from-transparent via-primary-foreground/30 to-transparent flex-1" />
           <span className="text-xs tracking-widest uppercase font-(family-name:--font-montserrat) text-primary-foreground/60 px-4 whitespace-nowrap">
-            Forever & Always
+            Forever <span className="text-accent">&</span> Always
           </span>
           <div className="h-px bg-linear-to-r from-transparent via-primary-foreground/30 to-transparent flex-1" />
         </div>

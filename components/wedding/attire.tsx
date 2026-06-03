@@ -134,13 +134,13 @@ export function Attire() {
       <div className="container mx-auto px-6">
         {/* Section header */}
         <div className="text-center mb-16 md:mb-24">
-          <p className="text-sm tracking-[0.3em] uppercase text-muted-foreground mb-4">
+          <p className="text-shadow-lg tracking-[0.3em] uppercase text-blushpink mb-4">
             What to Wear
           </p>
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-light text-foreground">
             Dress Code
           </h2>
-          <p className="mt-6 text-muted-foreground max-w-xl mx-auto">
+          <p className="font-bold mt-6 text-muted-foreground max-w-xl mx-auto">
             We kindly request our guests to wear shades of green to
             match our wedding theme.
           </p>
