@@ -21,5 +21,15 @@ hover:shadow-[0_12px_32px_rgba(0,0,0,0.08)]">
 
 
 4. Google sheet database
-
+old
 https://script.google.com/macros/s/AKfycbwNpdK4QOomhPcCD2YwhXtDSYbHaa2v6nfix-kVHGADjVn26whZJy7_BBgfyO1HfJ43/exec
+
+
+new form
+https://script.google.com/macros/s/AKfycby6EgW8RNUl-Vj86yZCRbj20pbCCkiIQR4JKy0wAGqA3dztjpNFDFFuof05g8tC90c/exec
+
+testing the apps script - add at the end of the url:
+?q=test
+
+New .env/local
+NEXT_PUBLIC_GOOGLE_SCRIPT_URL=https://script.google.com/macros/s/AKfycby6EgW8RNUl-Vj86yZCRbj20pbCCkiIQR4JKy0wAGqA3dztjpNFDFFuof05g8tC90c/exec
