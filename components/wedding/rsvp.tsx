@@ -16,6 +16,9 @@ export function RSVP() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
+  const [submissionType, setSubmissionType] = useState("");
+  const [isLockedRSVP, setIsLockedRSVP] = useState(false);
+
   const [query, setQuery] = useState("");
   const [results, setResults] = useState<
     {
@@ -72,21 +75,52 @@ export function RSVP() {
     return () => clearTimeout(timeout);
   }, [query, selectedGuest]);
 
-  const selectGuest = (guest: { fullName: string; guestCount: number }) => {
+  const selectGuest = async (guest: { fullName: string; guestCount: number }) => {
     setSelectedGuest(guest);
 
+    // reset lock state
+    setIsLockedRSVP(false);
+
+    // default form values
     setFormData((prev) => ({
       ...prev,
       name: guest.fullName,
       guests: String(guest.guestCount),
+      email: "",
+      message: "",
+      attendance: "Accept",
     }));
 
     setQuery(guest.fullName);
     setResults([]);
+
+    try {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_GOOGLE_SCRIPT_URL}?action=checkGuest&q=${encodeURIComponent(guest.fullName)}`,
+      );
+
+      const data = await response.json();
+
+      // finalized RSVP
+      if (data.locked) {
+        setIsLockedRSVP(true);
+
+        setFormData({
+          name: data.guest.name || "",
+          email: data.guest.email || "",
+          attendance: data.guest.attendance || "Accept",
+          guests: String(data.guest.guestCount || ""),
+          message: data.guest.message || "",
+        });
+      }
+    } catch (error) {
+      console.error("Locked RSVP check failed:", error);
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
     setSubmitError("");
     setIsSubmitting(true);
     setError(null);
@@ -101,14 +135,40 @@ export function RSVP() {
       });
 
       const data = await response.json();
-      if (!response.ok || !data.success) {
-        setSubmitError(data.error || "Failed to submit RSVP. Please try again.");
+
+      // SUCCESS
+      if (data.result === "success") {
+        setSubmissionType(data.submissionType);
+        setSubmitted(true);
         return;
       }
 
-      setSubmitted(true);
+      // LOCKED RSVP
+      if (data.result === "locked") {
+        setIsLockedRSVP(true);
+
+        setFormData({
+          name: data.guest.name || "",
+          email: data.guest.email || "",
+          attendance: data.guest.attendance || "Accept",
+          guests: String(data.guest.guestCount || ""),
+          message: data.guest.message || "",
+        });
+
+        setSelectedGuest({
+          fullName: data.guest.name,
+          guestCount: data.guest.guestCount,
+        });
+
+        setQuery(data.guest.name);
+
+        return;
+      }
+
+      setSubmitError(data.error || "Failed to submit RSVP.");
     } catch (err: any) {
       console.error("RSVP submission error:", err);
+
       setError(err.message || "Something went wrong. Please try again later.");
     } finally {
       setIsSubmitting(false);
@@ -327,6 +387,7 @@ export function RSVP() {
                     </Label>
                     <Input
                       id="email"
+                      disabled={isLockedRSVP}
                       type="email"
                       required
                       value={formData.email}
@@ -344,6 +405,7 @@ export function RSVP() {
                       {/* Accept */}
                       <button
                         type="button"
+                        disabled={isLockedRSVP}
                         onClick={() =>
                           setFormData({
                             ...formData,
@@ -369,6 +431,7 @@ export function RSVP() {
                       {/* Decline */}
                       <button
                         type="button"
+                        disabled={isLockedRSVP}
                         onClick={() =>
                           setFormData({
                             ...formData,
@@ -508,6 +571,7 @@ export function RSVP() {
                       Message for the Couple
                     </Label>
                     <Textarea
+                      disabled={isLockedRSVP}
                       id="message"
                       value={formData.message}
                       onChange={(e) => setFormData({ ...formData, message: e.target.value })}
@@ -516,15 +580,65 @@ export function RSVP() {
                     />
                   </div>
 
+                  {isLockedRSVP && (
+                    <div
+                      className="
+                        rounded-[2rem]
+                        border border-border/30
+                        bg-white/80
+                        px-6 py-6 text-center
+                        shadow-[0_8px_25px_rgba(0,0,0,0.06)]
+                        animate-in fade-in duration-500"
+                    >
+                      <p className="text-lg font-medium text-foreground">Your RSVP has been finalized 💍</p>
+
+                      <p
+                        className="
+                          mt-2 text-sm text-muted-foreground
+                          leading-7
+                          font-(family-name:--font-montserrat)"
+                      >
+                        We have received your RSVP and your one allowed update has already been used.
+                        <br />
+                        Kindly contact the couple for further changes.
+                      </p>
+
+                      {formData.attendance === "Accept" ? (
+                        <a
+                          href="/seat-finder"
+                          className="
+                            inline-flex items-center justify-center
+                            mt-5 rounded-full
+                            bg-accent px-6 py-3
+                            text-white shadow-sm
+                            transition-all duration-300
+                            hover:scale-105 hover:shadow-md"
+                        >
+                          Find My Seat ✨
+                        </a>
+                      ) : (
+                        <p
+                          className="
+                            mt-4 text-rose-500
+                            font-(family-name:--font-montserrat)"
+                        >
+                          We’re sorry you can’t celebrate with us 💔
+                        </p>
+                      )}
+                    </div>
+                  )}
+
                   {error && (
                     <div className="text-destructive text-sm text-center font-(family-name:--font-montserrat) animate-pulse">{error}</div>
                   )}
 
-                  {/* Submit */}
-                  <Button
-                    type="submit"
-                    disabled={isSubmitting || !selectedGuest}
-                    className="
+                  {!isLockedRSVP && (
+                    <>
+                      {/* Submit */}
+                      <Button
+                        type="submit"
+                        disabled={isSubmitting || !selectedGuest}
+                        className="
                       w-full rounded-[1.5rem]
                       bg-primary py-6 text-sm uppercase
                       tracking-[0.2em] text-primary-foreground
@@ -534,14 +648,17 @@ export function RSVP() {
                       hover:-translate-y-1 hover:bg-primary/90
                       hover:shadow-lg active:scale-[0.98]
                       disabled:opacity-50 disabled:hover:translate-y-0
-                      disabled:hover:shadow-[0_8px_20px_rgba(0,0,0,0.12)]">
-                    {isSubmitting ? "Sending..." : "Send RSVP"}
-                  </Button>
+                      disabled:hover:shadow-[0_8px_20px_rgba(0,0,0,0.12)]"
+                      >
+                        {isSubmitting ? "Sending..." : "Send RSVP"}
+                      </Button>
 
-                  {submitError && (
-                    <div className="mt-4 rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-center">
-                      <p className="text-sm text-red-500 whitespace-pre-line">{submitError}</p>
-                    </div>
+                      {submitError && (
+                        <div className="mt-4 rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-center">
+                          <p className="text-sm text-red-500 whitespace-pre-line">{submitError}</p>
+                        </div>
+                      )}
+                    </>
                   )}
                 </>
               )}
