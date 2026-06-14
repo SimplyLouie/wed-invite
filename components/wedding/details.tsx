@@ -1,7 +1,7 @@
 "use client"
 
 import { MapPin, Clock, Shirt, Mail, Heart, PartyPopper  } from "lucide-react"
-import { FaFacebookMessenger, FaYoutube  } from "react-icons/fa6";
+import { FaFacebookMessenger, FaYoutube, FaInstagram  } from "react-icons/fa6";
 import Image from "next/image"
 
 
