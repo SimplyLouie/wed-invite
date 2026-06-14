@@ -7,7 +7,7 @@ import Image from "next/image"
 
 export function Details() {
   return (
-    <section id="details" className="py-24 md:py-32 bg-secondary/30 relative overflow-hidden">
+    <section id="details" className="py-24 md:py-32 relative overflow-hidden">
       {/* Decorative background elements */}
       <div className="absolute top-0 left-0 w-full h-px bg-linear-to-r from-transparent via-border to-transparent" />
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-secondary opacity-50 rounded-full blur-3xl pointer-events-none -z-10" />

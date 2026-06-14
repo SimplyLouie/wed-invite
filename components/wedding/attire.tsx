@@ -130,7 +130,7 @@ export function Attire() {
   const [selectedGreen, setSelectedGreen] = useState<Shade>(greenShades[0]);
 
   return (
-    <section id="attire" className="py-24 md:py-32 bg-background">
+    <section id="attire" className="py-24 md:py-32 bg-secondary">
       <div className="container mx-auto px-6">
         {/* Section header */}
         <div className="text-center mb-16 md:mb-24">
@@ -150,7 +150,7 @@ export function Attire() {
         <div className="max-w-5xl mx-auto">
           <div className="grid grid-cols-2 gap-3 md:gap-8 mb-8">
             {/* Gentleman card */}
-            <div className="bg-secondary/30 rounded-2xl p-4 md:p-8 flex flex-col items-center">
+            <div className="bg-background rounded-2xl p-4 md:p-8 flex flex-col items-center">
               <h4 className="text-sm md:text-lg font-medium text-foreground text-center mb-4 md:mb-6">
                 Gentlemen
               </h4>
@@ -166,7 +166,7 @@ export function Attire() {
             </div>
 
             {/* Lady card */}
-            <div className="bg-secondary/30 rounded-2xl p-4 md:p-8 flex flex-col items-center">
+            <div className="bg-background rounded-2xl p-4 md:p-8 flex flex-col items-center">
               <h4 className="text-sm md:text-lg font-medium text-foreground text-center mb-4 md:mb-6">
                 Ladies
               </h4>
@@ -183,7 +183,7 @@ export function Attire() {
         </div>
 
         {/* Color selector */}
-        <div className="max-w-4xl mx-auto rounded-3xl bg-secondary/30 p-6 md:p-10">
+        <div className="max-w-4xl mx-auto rounded-3xl bg-background p-6 md:p-10">
           <h3 className="text-xl md:text-2xl font-light text-foreground text-center mb-6">
             Select A Shade
           </h3>
