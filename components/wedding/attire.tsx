@@ -11,8 +11,14 @@ const greenShades = [
   { name: "Olive", hex: "#7F8F6E" },
 ];
 
-const sponsorAttire = [
-  {
+const attireRoles = [
+  { id: "guests", label: "Guests" },
+  { id: "principal", label: "Principal" },
+  { id: "secondary", label: "Secondary" },
+] as const;
+
+const sponsorAttire = {
+  principal: {
     role: "Principal Sponsors",
     note: "Cream and white",
     women: {
@@ -24,7 +30,7 @@ const sponsorAttire = [
       color: "#F8F5EE",
     },
   },
-  {
+  secondary: {
     role: "Secondary Sponsors",
     note: "Champagne and beige",
     women: {
@@ -36,12 +42,25 @@ const sponsorAttire = [
       color: "#D7C3A3",
     },
   },
+};
+
+const assignedColorLabels = [
+  {
+    name: "Women",
+    garment: "Gown",
+  },
+  {
+    name: "Men",
+    garment: "Barong",
+  },
 ];
 
 type Shade = {
   name: string;
   hex: string;
 };
+
+type AttireRole = (typeof attireRoles)[number]["id"];
 
 /** Gentleman figure: shirt + trousers */
 function GentlemanFigure({ color }: { color: string }) {
@@ -208,63 +227,27 @@ function LadyFigure({ color }: { color: string }) {
   );
 }
 
-function SponsorCard({
-  role,
-  note,
-  women,
-  men,
-}: {
-  role: string;
-  note: string;
-  women: { label: string; color: string };
-  men: { label: string; color: string };
-}) {
-  return (
-    <div className="bg-background rounded-2xl p-5 md:p-8">
-      <div className="text-center mb-6 md:mb-8">
-        <h3 className="text-xl md:text-2xl font-light text-foreground">
-          {role}
-        </h3>
-        <p className="mt-1 text-xs md:text-sm text-muted-foreground">
-          {note}
-        </p>
-      </div>
-
-      <div className="grid grid-cols-2 gap-4 md:gap-8">
-        <div className="flex flex-col items-center gap-3">
-          <div className="w-16 h-28 sm:w-20 sm:h-36 md:w-24 md:h-40">
-            <LadyFigure color={women.color} />
-          </div>
-          <div className="text-center">
-            <p className="text-[11px] md:text-sm font-medium text-foreground">
-              Women
-            </p>
-            <p className="text-[10px] md:text-xs text-muted-foreground">
-              {women.label}
-            </p>
-          </div>
-        </div>
-
-        <div className="flex flex-col items-center gap-3">
-          <div className="w-16 h-28 sm:w-20 sm:h-36 md:w-24 md:h-40">
-            <BarongFigure color={men.color} />
-          </div>
-          <div className="text-center">
-            <p className="text-[11px] md:text-sm font-medium text-foreground">
-              Men
-            </p>
-            <p className="text-[10px] md:text-xs text-muted-foreground">
-              {men.label}
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
 export function Attire() {
-  const [selectedGreen, setSelectedGreen] = useState<Shade>(greenShades[0]);
+  const [selectedGreen, setSelectedGreen] = useState<Shade>(greenShades[2]);
+  const [selectedRole, setSelectedRole] = useState<AttireRole>("guests");
+
+  const activeAttire =
+    selectedRole === "guests"
+      ? {
+          role: "Guests",
+          note: "Shades of green",
+          women: {
+            label: `${selectedGreen.name} Dress`,
+            color: selectedGreen.hex,
+          },
+          men: {
+            label: `${selectedGreen.name} Suit`,
+            color: selectedGreen.hex,
+          },
+        }
+      : sponsorAttire[selectedRole];
+
+  const isGuestRole = selectedRole === "guests";
 
   return (
     <section id="attire" className="py-24 md:py-32 bg-secondary">
@@ -283,89 +266,142 @@ export function Attire() {
           </p>
         </div>
 
-        <div className="max-w-4xl mx-auto space-y-6 md:space-y-8">
-          {/* Guest attire */}
+        <div className="max-w-4xl mx-auto">
           <div className="bg-background rounded-2xl p-5 md:p-8">
-            <div className="text-center mb-6 md:mb-8">
-              <h3 className="text-xl md:text-2xl font-light text-foreground">
-                Guests
+            <div className="text-center mb-7 md:mb-9">
+              <h3 className="text-2xl md:text-3xl font-light text-foreground">
+                {activeAttire.role}
               </h3>
-              <p className="mt-1 text-xs md:text-sm text-muted-foreground">
-                Shades of green
+              <p className="mt-2 text-base md:text-lg text-muted-foreground">
+                {activeAttire.note}
               </p>
             </div>
 
-            <div className="grid grid-cols-2 gap-4 md:gap-8">
+            <div className="grid grid-cols-2 gap-4 md:gap-10">
               <div className="flex flex-col items-center gap-4">
                 {/* Figure container - fixed aspect ratio so it never clips */}
                 <div className="w-16 h-28 sm:w-20 sm:h-36 md:w-24 md:h-40">
-                  <GentlemanFigure color={selectedGreen.hex} />
+                  {isGuestRole ? (
+                    <GentlemanFigure color={activeAttire.men.color} />
+                  ) : (
+                    <BarongFigure color={activeAttire.men.color} />
+                  )}
                 </div>
                 <div className="text-center">
-                  <p className="text-[11px] md:text-sm font-medium text-foreground">
+                  <p className="text-base md:text-lg font-medium text-foreground">
                     Gentlemen
                   </p>
-                  <p className="text-[10px] md:text-xs text-muted-foreground">
-                    {selectedGreen.name} Suit
+                  <p className="mt-1 text-sm md:text-base text-muted-foreground">
+                    {activeAttire.men.label}
                   </p>
                 </div>
               </div>
 
               <div className="flex flex-col items-center gap-4">
                 <div className="w-16 h-28 sm:w-20 sm:h-36 md:w-24 md:h-40">
-                  <LadyFigure color={selectedGreen.hex} />
+                  <LadyFigure color={activeAttire.women.color} />
                 </div>
                 <div className="text-center">
-                  <p className="text-[11px] md:text-sm font-medium text-foreground">
+                  <p className="text-base md:text-lg font-medium text-foreground">
                     Ladies
                   </p>
-                  <p className="text-[10px] md:text-xs text-muted-foreground">
-                    {selectedGreen.name} Dress
+                  <p className="mt-1 text-sm md:text-base text-muted-foreground">
+                    {activeAttire.women.label}
                   </p>
                 </div>
+              </div>
+            </div>
+
+            <div className="mt-8 flex justify-center">
+              <div className="grid w-full max-w-xl grid-cols-3 gap-1.5 rounded-full bg-secondary p-1.5">
+                {attireRoles.map((role) => {
+                  const isActive = selectedRole === role.id;
+                  return (
+                    <button
+                      key={role.id}
+                      onClick={() => setSelectedRole(role.id)}
+                      className={`rounded-full px-3 py-2.5 text-sm font-medium transition-all duration-300 md:text-base ${
+                        isActive
+                          ? "bg-foreground text-background shadow-sm"
+                          : "text-muted-foreground hover:bg-background hover:text-foreground"
+                      }`}
+                    >
+                      {role.label}
+                    </button>
+                  );
+                })}
               </div>
             </div>
 
             <div className="mt-7 border-t border-secondary pt-5">
-              <h4 className="text-sm md:text-base font-light text-foreground text-center mb-4">
-                Select A Shade
-              </h4>
+              {isGuestRole ? (
+                <>
+                  <h4 className="text-base md:text-lg font-light text-foreground text-center mb-4">
+                    Select A Shade
+                  </h4>
 
-              <div className="flex flex-nowrap items-start justify-center gap-3">
-                {greenShades.map((color) => (
-                  <button
-                    key={color.name}
-                    onClick={() => setSelectedGreen(color)}
-                    className="group flex flex-col items-center shrink-0"
-                    aria-label={`Select ${color.name}`}
-                  >
-                    <div
-                      className={`w-11 h-11 md:w-12 md:h-12 rounded-full border-4 transition-all duration-300 flex items-center justify-center shadow-sm ${
-                        selectedGreen.name === color.name
-                          ? "scale-110"
-                          : "border-background hover:scale-105"
-                      }`}
-                      style={{
-                        backgroundColor: color.hex,
-                        borderColor:
-                          selectedGreen.name === color.name
-                            ? "#5E7D57"
-                            : undefined,
-                      }}
-                    >
-                      {selectedGreen.name === color.name && (
-                        <Check className="w-4 h-4 md:w-5 md:h-5 text-white drop-shadow-md" />
-                      )}
-                    </div>
-                  </button>
-                ))}
-              </div>
+                  <div className="flex flex-nowrap items-start justify-center gap-3">
+                    {greenShades.map((color) => (
+                      <button
+                        key={color.name}
+                        onClick={() => setSelectedGreen(color)}
+                        className="group flex flex-col items-center shrink-0"
+                        aria-label={`Select ${color.name}`}
+                      >
+                        <div
+                          className={`w-11 h-11 md:w-12 md:h-12 rounded-full border-4 transition-all duration-300 flex items-center justify-center shadow-sm ${
+                            selectedGreen.name === color.name
+                              ? "scale-110"
+                              : "border-background hover:scale-105"
+                          }`}
+                          style={{
+                            backgroundColor: color.hex,
+                            borderColor:
+                              selectedGreen.name === color.name
+                                ? "#5E7D57"
+                                : undefined,
+                          }}
+                        >
+                          {selectedGreen.name === color.name && (
+                            <Check className="w-4 h-4 md:w-5 md:h-5 text-white drop-shadow-md" />
+                          )}
+                        </div>
+                      </button>
+                    ))}
+                  </div>
+                </>
+              ) : (
+                <>
+                  <h4 className="text-base md:text-lg font-light text-foreground text-center mb-4">
+                    Assigned Colors
+                  </h4>
+
+                  <div className="flex flex-wrap items-center justify-center gap-4">
+                    {assignedColorLabels.map((label) => {
+                      const attire =
+                        label.name === "Women"
+                          ? activeAttire.women
+                          : activeAttire.men;
+                      return (
+                        <div
+                          key={label.name}
+                          className="flex items-center gap-2 text-sm text-muted-foreground md:text-base"
+                        >
+                          <span
+                            className="h-8 w-8 rounded-full border-4 border-background shadow-sm"
+                            style={{ backgroundColor: attire.color }}
+                          />
+                          <span>
+                            {label.name}: {attire.label.replace(` ${label.garment}`, "")}
+                          </span>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </>
+              )}
             </div>
           </div>
-
-          {sponsorAttire.map((attire) => (
-            <SponsorCard key={attire.role} {...attire} />
-          ))}
         </div>
 
         <div className="mt-12 text-center">
