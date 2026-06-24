@@ -46,12 +46,12 @@ const sponsorAttire = {
 
 const assignedColorLabels = [
   {
-    name: "Women",
-    garment: "Gown",
-  },
-  {
     name: "Men",
     garment: "Barong",
+  },
+  {
+    name: "Women",
+    garment: "Gown",
   },
 ];
 
@@ -254,76 +254,71 @@ export function Attire() {
       <div className="container mx-auto px-6">
         {/* Section header */}
         <div className="text-center mb-16 md:mb-24">
-          <p className="text-shadow-lg tracking-[0.3em] uppercase text-blushpink mb-4">
-            What to Wear
-          </p>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-light text-foreground">
-            Dress Code
-          </h2>
+          <p className="text-shadow-lg tracking-[0.3em] uppercase text-blushpink mb-4">What to Wear</p>
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-light text-foreground">Dress Code</h2>
           <p className="font-bold mt-6 text-muted-foreground max-w-xl mx-auto">
-            We kindly request our guests to wear shades of green to
-            match our wedding theme.
+            We kindly request our guests to wear shades of green to match our wedding theme.
           </p>
         </div>
 
         <div className="max-w-4xl mx-auto">
-          <div className="bg-background rounded-2xl p-5 md:p-8">
-            <div className="text-center mb-7 md:mb-9">
-              <h3 className="text-2xl md:text-3xl font-light text-foreground">
-                {activeAttire.role}
-              </h3>
-              <p className="mt-2 text-base md:text-lg text-muted-foreground">
-                {activeAttire.note}
-              </p>
+          <div className="bg-background/50 rounded-2xl p-5 md:p-8">
+            <div className="text-center min-h-[120px] flex flex-col items-center justify-center mb-7 md:mb-9">
+              <h3 className="text-2xl md:text-3xl font-light text-foreground">{activeAttire.role}</h3>
+              <p className="mt-2 text-base md:text-lg text-muted-foreground">{activeAttire.note}</p>
+
+              {isGuestRole && (
+                <p className="mt-2 text-shadow font-semibold text-xs md:text-sm uppercase tracking-[0.2em] text-[#8A9A5B] font-medium">
+                  Sage Green Recommended
+                </p>
+              )}
             </div>
 
-            <div className="grid grid-cols-2 gap-4 md:gap-10">
-              <div className="flex flex-col items-center gap-4">
-                {/* Figure container - fixed aspect ratio so it never clips */}
-                <div className="w-16 h-28 sm:w-20 sm:h-36 md:w-24 md:h-40">
-                  {isGuestRole ? (
-                    <GentlemanFigure color={activeAttire.men.color} />
-                  ) : (
-                    <BarongFigure color={activeAttire.men.color} />
-                  )}
+            <div className="transition-all duration-300">
+              <div className="grid grid-cols-2 gap-4 md:gap-10">
+                <div className="flex flex-col items-center gap-4 min-h-[250px]">
+                  {/* Figure container - fixed aspect ratio so it never clips */}
+                  <div className="w-16 h-28 sm:w-20 sm:h-36 md:w-24 md:h-40">
+                    {isGuestRole ? <GentlemanFigure color={activeAttire.men.color} /> : <BarongFigure color={activeAttire.men.color} />}
+                  </div>
+                  <div className="text-center">
+                    <p className="text-base md:text-lg font-medium text-foreground">Gentlemen</p>
+                    <p className="mt-1 text-sm md:text-base text-muted-foreground">{activeAttire.men.label}</p>
+                  </div>
                 </div>
-                <div className="text-center">
-                  <p className="text-base md:text-lg font-medium text-foreground">
-                    Gentlemen
-                  </p>
-                  <p className="mt-1 text-sm md:text-base text-muted-foreground">
-                    {activeAttire.men.label}
-                  </p>
-                </div>
-              </div>
 
-              <div className="flex flex-col items-center gap-4">
-                <div className="w-16 h-28 sm:w-20 sm:h-36 md:w-24 md:h-40">
-                  <LadyFigure color={activeAttire.women.color} />
-                </div>
-                <div className="text-center">
-                  <p className="text-base md:text-lg font-medium text-foreground">
-                    Ladies
-                  </p>
-                  <p className="mt-1 text-sm md:text-base text-muted-foreground">
-                    {activeAttire.women.label}
-                  </p>
+                <div className="flex flex-col items-center gap-4 min-h-[250px]">
+                  <div className="w-16 h-28 sm:w-20 sm:h-36 md:w-24 md:h-40">
+                    <LadyFigure color={activeAttire.women.color} />
+                  </div>
+                  <div className="text-center">
+                    <p className="text-base md:text-lg font-medium text-foreground">Ladies</p>
+                    <p className="mt-1 text-sm md:text-base text-muted-foreground">{activeAttire.women.label}</p>
+                  </div>
                 </div>
               </div>
             </div>
 
             <div className="mt-8 flex justify-center">
-              <div className="grid w-full max-w-xl grid-cols-3 gap-1.5 rounded-full bg-secondary p-1.5">
+              <div className="relative grid w-full max-w-xl grid-cols-3 rounded-full bg-secondary p-1.5">
+                <div
+                  className={`absolute top-1.5 bottom-1.5 rounded-full bg-foreground shadow-sm transition-all duration-500 ease-out
+    ${
+      selectedRole === "guests"
+        ? "left-1.5 w-[calc(33.333%-4px)]"
+        : selectedRole === "principal"
+          ? "left-[33.333%] w-[calc(33.333%-2px)]"
+          : "left-[66.666%] w-[calc(33.333%-4px)]"
+    }`}
+                />
                 {attireRoles.map((role) => {
                   const isActive = selectedRole === role.id;
                   return (
                     <button
                       key={role.id}
                       onClick={() => setSelectedRole(role.id)}
-                      className={`rounded-full px-3 py-2.5 text-sm font-medium transition-all duration-300 md:text-base ${
-                        isActive
-                          ? "bg-foreground text-background shadow-sm"
-                          : "text-muted-foreground hover:bg-background hover:text-foreground"
+                      className={`relative z-10 rounded-full px-3 py-2.5 text-sm font-medium transition-colors duration-300 md:text-base ${
+                        isActive ? "text-background" : "text-muted-foreground hover:bg-background hover:text-foreground"
                       }`}
                     >
                       {role.label}
@@ -333,12 +328,10 @@ export function Attire() {
               </div>
             </div>
 
-            <div className="mt-7 border-t border-secondary pt-5">
+            <div className="mt-7 border-t border-secondary pt-5 min-h-[170px]">
               {isGuestRole ? (
                 <>
-                  <h4 className="text-base md:text-lg font-light text-foreground text-center mb-4">
-                    Select A Shade
-                  </h4>
+                  <h4 className="text-base md:text-lg font-light text-foreground text-center mb-4">Select A Shade</h4>
 
                   <div className="flex flex-nowrap items-start justify-center gap-3">
                     {greenShades.map((color) => (
@@ -349,22 +342,17 @@ export function Attire() {
                         aria-label={`Select ${color.name}`}
                       >
                         <div
-                          className={`w-11 h-11 md:w-12 md:h-12 rounded-full border-4 transition-all duration-300 flex items-center justify-center shadow-sm ${
+                          className={`rounded-full border-4 transition-all duration-300 flex items-center justify-center shadow-sm ${
                             selectedGreen.name === color.name
-                              ? "scale-110"
-                              : "border-background hover:scale-105"
+                              ? "w-14 h-14 md:w-16 md:h-16 scale-105"
+                              : "w-11 h-11 md:w-12 md:h-12 border-background hover:scale-105"
                           }`}
                           style={{
                             backgroundColor: color.hex,
-                            borderColor:
-                              selectedGreen.name === color.name
-                                ? "#5E7D57"
-                                : undefined,
+                            borderColor: selectedGreen.name === color.name ? "#5E7D57" : undefined,
                           }}
                         >
-                          {selectedGreen.name === color.name && (
-                            <Check className="w-4 h-4 md:w-5 md:h-5 text-white drop-shadow-md" />
-                          )}
+                          {selectedGreen.name === color.name && <Check className="w-4 h-4 md:w-5 md:h-5 text-white drop-shadow-md" />}
                         </div>
                       </button>
                     ))}
@@ -372,31 +360,27 @@ export function Attire() {
                 </>
               ) : (
                 <>
-                  <h4 className="text-base md:text-lg font-light text-foreground text-center mb-4">
-                    Assigned Colors
-                  </h4>
+                  <h4 className="text-base md:text-lg font-light text-foreground text-center mb-4">Assigned Colors</h4>
 
-                  <div className="flex flex-wrap items-center justify-center gap-4">
-                    {assignedColorLabels.map((label) => {
-                      const attire =
-                        label.name === "Women"
-                          ? activeAttire.women
-                          : activeAttire.men;
-                      return (
-                        <div
-                          key={label.name}
-                          className="flex items-center gap-2 text-sm text-muted-foreground md:text-base"
-                        >
-                          <span
-                            className="h-8 w-8 rounded-full border-4 border-background shadow-sm"
-                            style={{ backgroundColor: attire.color }}
-                          />
-                          <span>
-                            {label.name}: {attire.label.replace(` ${label.garment}`, "")}
-                          </span>
-                        </div>
-                      );
-                    })}
+                  <div className="flex justify-center">
+                    <div className="rounded-full bg-secondary/25 border border-border/40 px-5 py-3">
+                      <div className="flex items-center gap-6">
+                        {assignedColorLabels.map((label) => {
+                          const attire = label.name === "Women" ? activeAttire.women : activeAttire.men;
+                          return (
+                            <div key={label.name} className="flex items-center gap-2 text-sm text-muted-foreground md:text-base">
+                              <span
+                                className="h-8 w-8 rounded-full border-4 border-background shadow-sm"
+                                style={{ backgroundColor: attire.color }}
+                              />
+                              <span>
+                                {label.name}: {attire.label.replace(" Gown", "").replace(" Barong", "")}
+                              </span>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </div>
                   </div>
                 </>
               )}
@@ -405,9 +389,7 @@ export function Attire() {
         </div>
 
         <div className="mt-12 text-center">
-          <p className="text-sm text-muted-foreground italic max-w-lg mx-auto">
-            Cocktail or semi-formal attire is encouraged.
-          </p>
+          <p className="text-sm text-muted-foreground italic max-w-lg mx-auto">Cocktail or semi-formal attire is encouraged.</p>
         </div>
       </div>
     </section>
