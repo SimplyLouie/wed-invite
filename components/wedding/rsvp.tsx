@@ -829,7 +829,7 @@ export function RSVP() {
                     <p className="text-[0.65rem] uppercase tracking-[0.15em] text-[#9A7E6F] font-medium font-(family-name:--font-montserrat)">
                       We found you ✨
                     </p>
-                    <p className="truncate text-lg font-medium text-foreground">{selectedGuest.fullName}</p>
+                    <p className="text-lg font-medium text-foreground leading-snug break-words">{selectedGuest.fullName}</p>
                   </div>
 
                   {/* Change Name */}
