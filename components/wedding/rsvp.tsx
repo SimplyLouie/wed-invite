@@ -17,60 +17,6 @@ const RSVP_DEADLINE = "September 8, 2026";
 // and show the "finalizing the guest list" notice instead of the form.
 const IS_RSVP_CLOSED = false;
 
-// Reusable "Need to reach us" contact block (Messenger).
-function ReachUs({ className = "" }: { className?: string }) {
-  return (
-    <div className={`mx-auto max-w-xl text-center ${className}`}>
-      {/* Divider label */}
-      <div className="mb-4 flex items-center gap-3">
-        <div className="h-px flex-1 bg-border/60" />
-        <p className="whitespace-nowrap text-xs tracking-[0.18em] uppercase text-muted-foreground font-(family-name:--font-montserrat)">
-          Need to reach us?
-        </p>
-        <div className="h-px flex-1 bg-border/60" />
-      </div>
-
-      <p className="mb-5 text-sm leading-relaxed text-muted-foreground font-(family-name:--font-montserrat)">
-        Message us directly on Messenger for any questions about your invitation or RSVP.
-      </p>
-
-      <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4">
-        {/* John Mark */}
-        <a
-          href="https://m.me/kingcoal214"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="
-            inline-flex items-center gap-2
-            rounded-full border border-border/50 bg-white
-            px-5 py-2.5 shadow-sm
-            transition-all duration-300
-            hover:-translate-y-0.5 hover:border-blushpink/40 hover:shadow-md active:scale-95"
-        >
-          <FaFacebookMessenger className="text-blushpink" size={20} />
-          <span className="text-sm font-medium text-foreground font-(family-name:--font-montserrat)">John Mark</span>
-        </a>
-
-        {/* Chezza */}
-        <a
-          href="https://m.me/chezza214"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="
-            inline-flex items-center gap-2
-            rounded-full border border-border/50 bg-white
-            px-5 py-2.5 shadow-sm
-            transition-all duration-300
-            hover:-translate-y-0.5 hover:border-blushpink/40 hover:shadow-md active:scale-95"
-        >
-          <FaFacebookMessenger className="text-blushpink" size={20} />
-          <span className="text-sm font-medium text-foreground font-(family-name:--font-montserrat)">Chezza</span>
-        </a>
-      </div>
-    </div>
-  );
-}
-
 export function RSVP() {
   const [submitted, setSubmitted] = useState(false);
   const [submitError, setSubmitError] = useState("");
@@ -327,11 +273,21 @@ export function RSVP() {
               The RSVP period has now ended, and we are busy finalizing our guest list and seating
               arrangements.
               <br />
-              If you still need to reach us regarding your invitation, we&apos;d love to hear from you below.
+              For event information and how to reach us, please visit the Wedding Details section.
             </p>
 
-            {/* Need to reach us */}
-            <ReachUs className="mt-9" />
+            {/* Guide to Wedding Details */}
+            <a
+              href="#details"
+              className="
+                mt-9 inline-flex items-center justify-center gap-2
+                rounded-full bg-accent px-8 py-4
+                text-white font-medium tracking-wide shadow-md
+                transition-all duration-300
+                hover:scale-105 hover:shadow-lg"
+            >
+              View Wedding Details ✨
+            </a>
           </div>
         </div>
       </section>
@@ -829,7 +785,7 @@ export function RSVP() {
                     <p className="text-[0.65rem] uppercase tracking-[0.15em] text-[#9A7E6F] font-medium font-(family-name:--font-montserrat)">
                       We found you ✨
                     </p>
-                    <p className="truncate text-lg font-medium text-foreground">{selectedGuest.fullName}</p>
+                    <p className="text-lg font-medium text-foreground leading-snug break-words">{selectedGuest.fullName}</p>
                   </div>
 
                   {/* Change Name */}
@@ -1272,9 +1228,6 @@ export function RSVP() {
             </CardContent>
           </Card>
         )}
-
-        {/* Need to reach us */}
-        <ReachUs className="mt-12" />
 
         {/* QR Preview Modal */}
         {showQRPreview && (
