@@ -4,16 +4,28 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, ChevronLeft, ChevronRight, Play, Maximize2 } from "lucide-react";
-import { cn } from "@/lib/utils";
 import { Navigation } from "@/components/wedding/navigation";
 import { Footer } from "@/components/wedding/footer";
-import { galleryMedia } from "@/data/gallery";
-
-
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 
 export default function GalleryPage() {
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
   const [touchStart, setTouchStart] = useState<number | null>(null);
+  type GalleryItem = {
+    type: "image" | "video";
+    src: string;
+    alt: string;
+    thumbnail?: string;
+  };
+
+  const [galleryMedia, setGalleryMedia] = useState<GalleryItem[]>([]);
+  const [loading, setLoading] = useState(true);
+  const films = galleryMedia
+    .map((item, originalIndex) => ({ item, originalIndex }))
+    .filter(({ item }) => item.type === "video");
+  const moments = galleryMedia
+    .map((item, originalIndex) => ({ item, originalIndex }))
+    .filter(({ item }) => item.type === "image");
 
   const openLightbox = (index: number) => setSelectedIndex(index);
   const closeLightbox = () => setSelectedIndex(null);
@@ -41,6 +53,31 @@ export default function GalleryPage() {
     setTouchStart(null);
   };
 
+  useEffect(() => {
+    const loadGallery = async () => {
+      try {
+        const response = await fetch("/api/gallery");
+
+        if (!response.ok) {
+          throw new Error("Failed to load gallery.");
+        }
+
+        const data = await response.json();
+
+        setGalleryMedia(data);
+
+        // Keep the loading screen visible for 2 seconds
+        await new Promise((resolve) => setTimeout(resolve, 2000));
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadGallery();
+  }, []);
+
   // Keyboard navigation
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -57,7 +94,7 @@ export default function GalleryPage() {
 
   // Handle background music pause/resume
   useEffect(() => {
-    if (selectedIndex !== null && galleryMedia[selectedIndex].type === "video") {
+    if (selectedIndex !== null && galleryMedia[selectedIndex]?.type === "video") {
       window.dispatchEvent(new CustomEvent("wedding-pause-music"));
     } else {
       window.dispatchEvent(new CustomEvent("wedding-resume-music"));
@@ -65,11 +102,48 @@ export default function GalleryPage() {
 
     // Resume music when component unmounts or lightbox closes
     return () => {
-      if (selectedIndex !== null && galleryMedia[selectedIndex].type === "video") {
+      if (selectedIndex !== null && galleryMedia[selectedIndex]?.type === "video") {
         window.dispatchEvent(new CustomEvent("wedding-resume-music"));
       }
     };
-  }, [selectedIndex]);
+  }, [selectedIndex, galleryMedia]);
+
+  // loading effects
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-background flex flex-col items-center justify-center px-6">
+        {/* Decorative Divider */}
+        <div className="w-px h-16 bg-border mb-8 animate-pulse" />
+
+        {/* Heading */}
+        <h1 className="text-4xl md:text-5xl font-light text-foreground">Loading Memories</h1>
+
+        {/* Couple Names */}
+        <p className="mt-3 text-xl md:text-2xl text-blushpink font-(family-name:--font-great-vibes)">John Mark &amp; Chezza</p>
+
+        {/* Subtitle */}
+        <p className="mt-6 text-xs md:text-sm tracking-[0.25em] uppercase text-muted-foreground font-(family-name:--font-montserrat)">
+          Preparing our gallery...
+        </p>
+
+        {/* Animated Line */}
+        <div className="mt-10 w-40 h-px bg-border overflow-hidden">
+          <motion.div
+            className="h-full bg-accent"
+            animate={{
+              x: ["-100%", "100%"],
+            }}
+            transition={{
+              duration: 1.8,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+          />
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-background">
@@ -83,7 +157,7 @@ export default function GalleryPage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
-              className="text-sm tracking-[0.3em] uppercase font-(family-name:--font-montserrat) text-muted-foreground mb-4"
+              className="text-sm tracking-[0.3em] uppercase font-(family-name:--font-montserrat) text-blushpink mb-4"
             >
               Our Love in Motion
             </motion.p>
@@ -97,53 +171,125 @@ export default function GalleryPage() {
             </motion.h1>
           </div>
 
-          {/* Gallery Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 max-w-7xl mx-auto">
-            {galleryMedia.map((item, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, scale: 0.95 }}
-                whileInView={{ opacity: 1, scale: 1 }}
+          <div className="max-w-7xl mx-auto space-y-20 md:space-y-28">
+            {/* Films Carousel */}
+            {films.length > 0 && (
+              <motion.section
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.05 }}
-                className={cn(
-                  "relative overflow-hidden rounded-xl group cursor-pointer aspect-square bg-muted/30",
-                  index === 0 && "sm:col-span-2 sm:aspect-video", // Feature the video
-                )}
-                onClick={() => openLightbox(index)}
+                transition={{ duration: 0.6 }}
+                aria-labelledby="films-heading"
               >
-                {item.type === "image" ? (
-                  <Image
-                    src={item.src}
-                    alt={item.alt}
-                    fill
-                    className="object-cover transition-transform duration-700 group-hover:scale-110"
-                  />
-                ) : (
-                  <div className="relative w-full h-full">
-                    <Image
-                      src={item.thumbnail || "/images/placeholder.jpg"}
-                      alt={item.alt}
-                      fill
-                      className="object-cover transition-transform duration-700 group-hover:scale-110"
-                    />
-                    <div className="absolute inset-0 flex items-center justify-center bg-black/20 group-hover:bg-black/30 transition-colors">
-                      <div className="w-16 h-16 rounded-full border border-white/50 backdrop-blur-sm flex items-center justify-center text-white transition-transform duration-300 group-hover:scale-110">
-                        <Play size={28} fill="white" className="ml-1" />
-                      </div>
-                    </div>
-                  </div>
-                )}
-
-                {/* Overlay with info */}
-                <div className="absolute inset-x-0 bottom-0 p-6 bg-linear-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <div className="flex items-center justify-between">
-                    <p className="text-white text-sm font-(family-name:--font-montserrat) tracking-widest uppercase">{item.alt}</p>
-                    <Maximize2 size={16} className="text-white/70" />
-                  </div>
+                <div className="mb-8 flex items-end gap-5 md:mb-10">
+                  <h2 id="films-heading" className="shrink-0 text-3xl font-light text-foreground md:text-4xl">
+                    Our Films
+                  </h2>
+                  <div className="mb-2 h-px flex-1 bg-linear-to-r from-border to-transparent" />
                 </div>
-              </motion.div>
-            ))}
+
+                <Carousel opts={{ align: "start", loop: films.length > 3 }} className="px-1 md:px-12">
+                  <CarouselContent className="-ml-5">
+                    {films.map(({ item, originalIndex }) => (
+                      <CarouselItem key={`${item.src}-${originalIndex}`} className="basis-[88%] pl-5 sm:basis-2/3 md:basis-1/2 lg:basis-1/3">
+                        <button
+                          type="button"
+                          className="group relative block aspect-video w-full cursor-pointer overflow-hidden rounded-2xl bg-muted/30 text-left shadow-sm"
+                          onClick={() => openLightbox(originalIndex)}
+                          aria-label={`Open video: ${item.alt}`}
+                        >
+                          {item.src.includes("youtube.com") ? (
+                            <Image
+                              src={item.thumbnail || "/images/placeholder.jpg"}
+                              alt={item.alt}
+                              fill
+                              className="object-cover transition-transform duration-700 group-hover:scale-105"
+                            />
+                          ) : (
+                            <video
+                              src={item.src}
+                              className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                              muted
+                              preload="metadata"
+                              playsInline
+                            />
+                          )}
+
+                          <div className="absolute inset-0 flex items-center justify-center bg-black/20 transition-colors group-hover:bg-black/30">
+                            <div className="flex h-14 w-14 items-center justify-center rounded-full border border-white/60 text-white backdrop-blur-sm transition-transform duration-300 group-hover:scale-110">
+                              <Play size={24} fill="white" className="ml-1" />
+                            </div>
+                          </div>
+                          <div className="absolute inset-x-0 bottom-0 bg-linear-to-t from-black/70 to-transparent p-5 pt-12">
+                            <div className="flex items-center justify-between gap-4">
+                              <p className="truncate text-xs uppercase tracking-widest text-white font-(family-name:--font-montserrat)">
+                                {item.alt}
+                              </p>
+                              <Maximize2 size={16} className="shrink-0 text-white/70" />
+                            </div>
+                          </div>
+                        </button>
+                      </CarouselItem>
+                    ))}
+                  </CarouselContent>
+                  <CarouselPrevious className="hidden border-border/60 bg-background/90 shadow-md backdrop-blur-sm md:inline-flex" />
+                  <CarouselNext className="hidden border-border/60 bg-background/90 shadow-md backdrop-blur-sm md:inline-flex" />
+                </Carousel>
+              </motion.section>
+            )}
+
+            {/* Moments Carousel */}
+            {moments.length > 0 && (
+              <motion.section
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.1 }}
+                aria-labelledby="moments-heading"
+              >
+                <div className="mb-8 flex items-end gap-5 md:mb-10">
+                  <h2 id="moments-heading" className="shrink-0 text-3xl font-light text-foreground md:text-4xl">
+                    Our Moments
+                  </h2>
+                  <div className="mb-2 h-px flex-1 bg-linear-to-r from-border to-transparent" />
+                </div>
+
+                <Carousel opts={{ align: "start", loop: moments.length > 4 }} className="px-1 md:px-12">
+                  <CarouselContent className="-ml-5">
+                    {moments.map(({ item, originalIndex }) => (
+                      <CarouselItem
+                        key={`${item.src}-${originalIndex}`}
+                        className="basis-[78%] pl-5 sm:basis-1/2 md:basis-2/5 lg:basis-1/4"
+                      >
+                        <button
+                          type="button"
+                          className="group relative block aspect-4/5 w-full cursor-pointer overflow-hidden rounded-2xl bg-muted/30 text-left shadow-sm"
+                          onClick={() => openLightbox(originalIndex)}
+                          aria-label={`Open photo: ${item.alt}`}
+                        >
+                          <Image
+                            src={item.src}
+                            alt={item.alt}
+                            fill
+                            className="object-cover transition-transform duration-700 group-hover:scale-105"
+                          />
+                          <div className="absolute inset-x-0 bottom-0 bg-linear-to-t from-black/60 to-transparent p-5 pt-16 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                            <div className="flex items-center justify-between gap-4">
+                              <p className="truncate text-xs uppercase tracking-widest text-white font-(family-name:--font-montserrat)">
+                                {item.alt}
+                              </p>
+                              <Maximize2 size={16} className="shrink-0 text-white/70" />
+                            </div>
+                          </div>
+                        </button>
+                      </CarouselItem>
+                    ))}
+                  </CarouselContent>
+                  <CarouselPrevious className="hidden border-border/60 bg-background/90 shadow-md backdrop-blur-sm md:inline-flex" />
+                  <CarouselNext className="hidden border-border/60 bg-background/90 shadow-md backdrop-blur-sm md:inline-flex" />
+                </Carousel>
+              </motion.section>
+            )}
           </div>
         </div>
       </main>
@@ -204,11 +350,11 @@ export default function GalleryPage() {
               onTouchStart={handleTouchStart}
               onTouchEnd={handleTouchEnd}
             >
-              {galleryMedia[selectedIndex].type === "image" ? (
+              {galleryMedia[selectedIndex]?.type === "image" ? (
                 <div className="relative w-full h-full">
                   <Image
-                    src={galleryMedia[selectedIndex].src}
-                    alt={galleryMedia[selectedIndex].alt}
+                    src={galleryMedia[selectedIndex]?.src ?? ""}
+                    alt={galleryMedia[selectedIndex]?.alt ?? ""}
                     fill
                     className="object-contain"
                     priority
@@ -217,8 +363,8 @@ export default function GalleryPage() {
               ) : (
                 <div className="w-full aspect-video bg-black rounded-lg overflow-hidden shadow-2xl">
                   <iframe
-                    src={galleryMedia[selectedIndex].src}
-                    title={galleryMedia[selectedIndex].alt}
+                    src={galleryMedia[selectedIndex]?.src ?? ""}
+                    title={galleryMedia[selectedIndex]?.alt ?? ""}
                     className="w-full h-full"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen
@@ -228,9 +374,6 @@ export default function GalleryPage() {
 
               {/* Caption */}
               <div className="absolute -bottom-16 left-0 right-0 text-center">
-                <p className="text-foreground text-sm font-(family-name:--font-montserrat) tracking-[0.3em] uppercase">
-                  {galleryMedia[selectedIndex].alt}
-                </p>
                 <p className="text-muted-foreground text-xs mt-2 font-(family-name:--font-montserrat)">
                   {selectedIndex + 1} / {galleryMedia.length}
                 </p>

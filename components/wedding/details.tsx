@@ -43,7 +43,7 @@ export function Details() {
     <section id="details" className="py-24 md:py-32 relative overflow-hidden">
       {/* Decorative background elements */}
       <div className="absolute top-0 left-0 w-full h-px bg-linear-to-r from-transparent via-border to-transparent" />
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-secondary opacity-50 rounded-full blur-3xl pointer-events-none -z-10" />
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-200 h-200 bg-secondary opacity-50 rounded-full blur-3xl pointer-events-none -z-10" />
 
       <div className="container mx-auto px-6 relative z-10">
         {/* Section Header */}
@@ -57,7 +57,7 @@ export function Details() {
         <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 max-w-6xl mx-auto mb-10">
           {/* Ceremony Side Card */}
           <div
-            className="relative group rounded-[32px] border border-border/40 
+            className="relative group rounded-4xl border border-border/40 
               bg-background/70 backdrop-blur-xl shadow-lg transition-all duration-500 
               hover:-translate-y-1 hover:shadow-xl mt-12"
           >
@@ -116,7 +116,7 @@ export function Details() {
 
           {/* Reception Side Card*/}
           <div
-            className="relative group rounded-[32px] h-fit border 
+            className="relative group rounded-4xl h-fit border 
                     border-border/40 bg-background/70 backdrop-blur-xl shadow-lg transition-all duration-500 
                     hover:-translate-y-1 hover:shadow-xl mt-28"
           >
@@ -132,7 +132,7 @@ export function Details() {
 
             {/* Reception Image */}
             <div
-              className="relative h-72 overflow-hidden rounded-t-[32px] cursor-pointer"
+              className="relative h-72 overflow-hidden rounded-t-4xl cursor-pointer"
               onClick={() => setSelectedImage("/images/reception.png")}
             >
               <Image
@@ -182,29 +182,7 @@ export function Details() {
         </div>
 
         {/* Additional Info Grid */}
-        <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-          {/* Schedule */}
-          <div className="bg-background/60 backdrop-blur-sm rounded-3xl p-8 md:p-10 border border-border/50 text-center shadow-sm hover:shadow-md transition-shadow duration-300">
-            <Clock className="w-6 h-6 mx-auto mb-6 text-muted-foreground opacity-70" strokeWidth={1.5} />
-            <h4 className="text-xl font-medium mb-6">Schedule</h4>
-            <ul className="space-y-4 text-sm text-muted-foreground font-(family-name:--font-montserrat)">
-              <li className="flex flex-col gap-1">
-                <span className="font-semibold text-foreground">2:00 PM</span>
-                <span className="text-blushpink">Ceremony</span>
-              </li>
-              <li className="w-8 h-px bg-border mx-auto" />
-              <li className="flex flex-col gap-1">
-                <span className="font-semibold text-foreground">4:30 PM</span>
-                <span className="text-blushpink">Cocktail Hour</span>
-              </li>
-              <li className="w-8 h-px bg-border mx-auto" />
-              <li className="flex flex-col gap-1">
-                <span className="font-semibold text-foreground">6:00 PM</span>
-                <span className="text-blushpink">Reception</span>
-              </li>
-            </ul>
-          </div>
-
+        <div className="grid md:grid-cols-2 gap-8 max-w-3xl mx-auto">
           {/* Dress Code */}
           <div className="bg-background/60 backdrop-blur-sm rounded-3xl p-8 md:p-10 border border-border/50 text-center shadow-sm hover:shadow-md transition-shadow duration-300">
             <Shirt className="w-6 h-6 mx-auto mb-6 text-muted-foreground opacity-70" strokeWidth={1.5} />

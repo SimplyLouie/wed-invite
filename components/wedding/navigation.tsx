@@ -214,7 +214,7 @@ export function Navigation() {
               />
               {/* RSVP Button */}
               <Heart size={11} strokeWidth={1.5} className="text-primary-foreground/70 shrink-0" />
-              <span className="font-(family-name:--font-montserrat) tracking-[0.3em] uppercase text-[9px] text-primary-foreground">
+              <span className="font-(family-name:--font-montserrat) tracking-[0.3em] uppercase text-xs text-primary-foreground">
                 {rsvpLink.label}
               </span>
             </Link>
@@ -231,7 +231,7 @@ export function Navigation() {
             >
               {/* Find Seat button */}
               <MapPin size={11} strokeWidth={1.5} className="text-primary/60 shrink-0" />
-              <span className="font-(family-name:--font-montserrat) tracking-[0.3em] uppercase text-[9px] text-primary">
+              <span className="font-(family-name:--font-montserrat) tracking-[0.3em] uppercase text-xs text-primary">
                 {seatFinderLink.label}
               </span>
             </Link>
