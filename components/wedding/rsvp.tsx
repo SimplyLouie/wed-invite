@@ -13,9 +13,35 @@ import { Check, Heart, CircleX, Frown, Search, ChevronLeft, Loader2, Calendar, L
 // RSVP deadline shown across the section
 const RSVP_DEADLINE = "September 8, 2026";
 
-// Flip to `true` once the RSVP period ends to close submissions
-// and show the "finalizing the guest list" notice instead of the form.
-const IS_RSVP_CLOSED = false;
+// Exact moment the RSVP period ends: 12:00 AM (midnight) Philippine Time (UTC+8).
+// The `+08:00` offset pins this to PH time no matter where the guest's device is.
+const RSVP_DEADLINE_DATE = new Date("2026-09-08T00:00:00+08:00");
+
+// Manual override — flip to `true` to force submissions closed early.
+// Otherwise the RSVP closes automatically once RSVP_DEADLINE_DATE passes.
+const FORCE_RSVP_CLOSED = false;
+
+interface TimeLeft {
+  days: number;
+  hours: number;
+  minutes: number;
+  seconds: number;
+}
+
+const getTimeLeft = (): TimeLeft => {
+  const difference = RSVP_DEADLINE_DATE.getTime() - new Date().getTime();
+
+  if (difference <= 0) {
+    return { days: 0, hours: 0, minutes: 0, seconds: 0 };
+  }
+
+  return {
+    days: Math.floor(difference / (1000 * 60 * 60 * 24)),
+    hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
+    minutes: Math.floor((difference / 1000 / 60) % 60),
+    seconds: Math.floor((difference / 1000) % 60),
+  };
+};
 
 export function RSVP() {
   const [submitted, setSubmitted] = useState(false);
@@ -44,6 +70,23 @@ export function RSVP() {
   const [isLoadingGuest, setIsLoadingGuest] = useState(false);
 
   const [showQRPreview, setShowQRPreview] = useState(false);
+
+  // Live countdown to the RSVP deadline + automatic closing once it passes.
+  // `mounted` guards against SSR/hydration mismatch since the value is time-based.
+  const [mounted, setMounted] = useState(false);
+  const [timeLeft, setTimeLeft] = useState<TimeLeft>(getTimeLeft);
+  const isRsvpClosed = FORCE_RSVP_CLOSED || (mounted && RSVP_DEADLINE_DATE.getTime() <= Date.now());
+
+  useEffect(() => {
+    setMounted(true);
+    setTimeLeft(getTimeLeft());
+
+    const timer = setInterval(() => {
+      setTimeLeft(getTimeLeft());
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, []);
 
   const [formData, setFormData] = useState({
     name: "",
@@ -220,7 +263,7 @@ export function RSVP() {
   // ===============================================================
   // RSVP CLOSED — submissions ended, finalizing the guest list
   // ===============================================================
-  if (IS_RSVP_CLOSED) {
+  if (isRsvpClosed) {
     return (
       <section id="rsvp" className="py-24 md:py-32">
         <div className="container mx-auto px-6">
@@ -453,6 +496,38 @@ export function RSVP() {
             <span className="text-sm font-medium text-foreground font-(family-name:--font-montserrat)">
               Please respond before {RSVP_DEADLINE}
             </span>
+          </div>
+
+          {/* Live countdown to the RSVP deadline (12:00 AM PH time) */}
+          <div className="mt-8">
+            <p className="mb-4 text-xs tracking-[0.2em] uppercase text-muted-foreground font-(family-name:--font-montserrat)">
+              RSVP Closes In
+            </p>
+            <div className="flex justify-center items-center gap-3 sm:gap-5">
+              {[
+                { value: timeLeft.days, label: "Days" },
+                { value: timeLeft.hours, label: "Hours" },
+                { value: timeLeft.minutes, label: "Minutes" },
+                { value: timeLeft.seconds, label: "Seconds" },
+              ].map((item) => (
+                <div
+                  key={item.label}
+                  className="
+                    flex min-w-[64px] sm:min-w-[78px] flex-col items-center
+                    rounded-2xl border border-blushpink/15
+                    bg-white/70 backdrop-blur-sm
+                    px-3 py-3 sm:px-4 sm:py-4
+                    shadow-[0_8px_25px_rgba(0,0,0,0.05)]"
+                >
+                  <span className="text-2xl sm:text-4xl font-light text-foreground tabular-nums">
+                    {mounted ? item.value.toString().padStart(2, "0") : "--"}
+                  </span>
+                  <span className="mt-1 text-[0.6rem] sm:text-xs tracking-[0.15em] uppercase text-muted-foreground font-(family-name:--font-montserrat)">
+                    {item.label}
+                  </span>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
 
