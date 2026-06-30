@@ -254,18 +254,22 @@ export default function GalleryPage() {
                   <div className="mb-2 h-px flex-1 bg-linear-to-r from-border to-transparent" />
                 </div>
 
-                <Carousel opts={{ align: "start", loop: moments.length > 4 }} className="px-1 md:px-12">
-                  <CarouselContent className="-ml-5">
-                    {moments.map(({ item, originalIndex }) => (
-                      <CarouselItem
-                        key={`${item.src}-${originalIndex}`}
-                        className="basis-[78%] pl-5 sm:basis-1/2 md:basis-2/5 lg:basis-1/4"
+                <div className="moments-auto-scroll">
+                  <div className="moments-auto-scroll-track">
+                    {[0, 1].map((copyIndex) => (
+                      <div
+                        key={copyIndex}
+                        className="moments-auto-scroll-group"
+                        aria-hidden={copyIndex === 1}
                       >
+                        {moments.map(({ item, originalIndex }) => (
+                          <div key={`${copyIndex}-${item.src}-${originalIndex}`} className="w-[clamp(17rem,78vw,19rem)] shrink-0">
                         <button
                           type="button"
                           className="group relative block aspect-4/5 w-full cursor-pointer overflow-hidden rounded-2xl bg-muted/30 text-left shadow-sm"
                           onClick={() => openLightbox(originalIndex)}
                           aria-label={`Open photo: ${item.alt}`}
+                          tabIndex={copyIndex === 1 ? -1 : 0}
                         >
                           <Image
                             src={item.src}
@@ -282,12 +286,12 @@ export default function GalleryPage() {
                             </div>
                           </div>
                         </button>
-                      </CarouselItem>
+                          </div>
+                        ))}
+                      </div>
                     ))}
-                  </CarouselContent>
-                  <CarouselPrevious className="hidden border-border/60 bg-background/90 shadow-md backdrop-blur-sm md:inline-flex" />
-                  <CarouselNext className="hidden border-border/60 bg-background/90 shadow-md backdrop-blur-sm md:inline-flex" />
-                </Carousel>
+                  </div>
+                </div>
               </motion.section>
             )}
           </div>
