@@ -250,59 +250,68 @@ export function Attire() {
   const isGuestRole = selectedRole === "guests";
 
   return (
-    <section id="attire" className="py-24 md:py-32 bg-secondary">
+    <section id="attire" className="bg-linear-to-b from-secondary via-secondary/70 to-background py-24 md:py-32">
       <div className="container mx-auto px-6">
         {/* Section header */}
-        <div className="text-center mb-16 md:mb-24">
-          <p className="text-shadow-lg tracking-[0.3em] uppercase text-blushpink mb-4">What to Wear</p>
+        <div className="mb-14 text-center md:mb-18">
+          <p className="mb-4 text-sm tracking-[0.3em] uppercase text-blushpink font-(family-name:--font-montserrat)">What to Wear</p>
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-light text-foreground">Dress Code</h2>
-          <p className="font-bold mt-6 text-muted-foreground max-w-xl mx-auto">
+          <p className="mx-auto mt-5 max-w-xl text-sm leading-relaxed text-muted-foreground font-(family-name:--font-montserrat) md:text-base">
             We kindly request our guests to wear shades of green to match our wedding theme.
           </p>
         </div>
 
         <div className="max-w-4xl mx-auto">
-          <div className="bg-background/50 rounded-2xl p-5 md:p-8">
-            <div className="text-center min-h-[120px] flex flex-col items-center justify-center mb-7 md:mb-9">
+          <div className="overflow-hidden rounded-4xl border border-blushpink/10 bg-linear-to-br from-background/95 via-background/80 to-blushpink/5 p-5 shadow-[0_24px_70px_rgba(68,45,40,0.07)] backdrop-blur-sm md:p-10">
+            <div className="mb-8 flex min-h-32 flex-col items-center justify-center text-center md:mb-10">
               <h3 className="text-2xl md:text-3xl font-light text-foreground">{activeAttire.role}</h3>
-              <p className="mt-2 text-base md:text-lg text-muted-foreground">{activeAttire.note}</p>
+              <p className="mt-2 text-sm text-muted-foreground md:text-base">{activeAttire.note}</p>
 
               {isGuestRole && (
-                <p className="mt-2 text-shadow font-semibold text-xs md:text-sm uppercase tracking-[0.2em] text-[#8A9A5B] font-medium">
+                <p className="mt-2 text-[0.65rem] font-medium uppercase tracking-[0.2em] text-[#8A9A5B] font-(family-name:--font-montserrat) md:text-xs">
                   Sage Green Recommended
                 </p>
               )}
+              <div className="mt-4 h-px w-12 bg-blushpink/50" />
             </div>
 
             <div className="transition-all duration-300">
-              <div className="grid grid-cols-2 gap-4 md:gap-10">
-                <div className="flex flex-col items-center gap-4 min-h-[250px]">
+              <div className="grid grid-cols-2">
+                <div className="flex min-h-60 flex-col items-center gap-4 border-r border-border/50 px-2 md:min-h-64 md:px-8">
                   {/* Figure container - fixed aspect ratio so it never clips */}
-                  <div className="w-16 h-28 sm:w-20 sm:h-36 md:w-24 md:h-40">
-                    {isGuestRole ? <GentlemanFigure color={activeAttire.men.color} /> : <BarongFigure color={activeAttire.men.color} />}
+                  <div className="flex h-38 w-28 items-center justify-center rounded-[50%] bg-secondary/45 sm:h-44 sm:w-36 md:h-48 md:w-40">
+                    <div className="h-32 w-18 sm:h-38 sm:w-20 md:h-42 md:w-24">
+                      {isGuestRole ? <GentlemanFigure color={activeAttire.men.color} /> : <BarongFigure color={activeAttire.men.color} />}
+                    </div>
                   </div>
                   <div className="text-center">
-                    <p className="text-base md:text-lg font-medium text-foreground">Gentlemen</p>
-                    <p className="mt-1 text-sm md:text-base text-muted-foreground">{activeAttire.men.label}</p>
+                    <p className="text-base font-medium text-foreground md:text-lg">Gentlemen</p>
+                    <p className="mt-1 text-[0.65rem] uppercase tracking-[0.14em] text-muted-foreground font-(family-name:--font-montserrat) md:text-xs">
+                      {activeAttire.men.label}
+                    </p>
                   </div>
                 </div>
 
-                <div className="flex flex-col items-center gap-4 min-h-[250px]">
-                  <div className="w-16 h-28 sm:w-20 sm:h-36 md:w-24 md:h-40">
-                    <LadyFigure color={activeAttire.women.color} />
+                <div className="flex min-h-60 flex-col items-center gap-4 px-2 md:min-h-64 md:px-8">
+                  <div className="flex h-38 w-28 items-center justify-center rounded-[50%] bg-secondary/45 sm:h-44 sm:w-36 md:h-48 md:w-40">
+                    <div className="h-32 w-18 sm:h-38 sm:w-20 md:h-42 md:w-24">
+                      <LadyFigure color={activeAttire.women.color} />
+                    </div>
                   </div>
                   <div className="text-center">
-                    <p className="text-base md:text-lg font-medium text-foreground">Ladies</p>
-                    <p className="mt-1 text-sm md:text-base text-muted-foreground">{activeAttire.women.label}</p>
+                    <p className="text-base font-medium text-foreground md:text-lg">Ladies</p>
+                    <p className="mt-1 text-[0.65rem] uppercase tracking-[0.14em] text-muted-foreground font-(family-name:--font-montserrat) md:text-xs">
+                      {activeAttire.women.label}
+                    </p>
                   </div>
                 </div>
               </div>
             </div>
 
-            <div className="mt-8 flex justify-center">
-              <div className="relative grid w-full max-w-xl grid-cols-3 rounded-full bg-secondary p-1.5">
+            <div className="mt-7 flex justify-center">
+              <div className="relative grid w-full max-w-lg grid-cols-3 rounded-full border border-border/40 bg-secondary/60 p-1.5">
                 <div
-                  className={`absolute top-1.5 bottom-1.5 rounded-full bg-foreground shadow-sm transition-all duration-500 ease-out
+                  className={`absolute top-1.5 bottom-1.5 rounded-full bg-blushpink/20 shadow-sm ring-1 ring-blushpink/15 transition-all duration-500 ease-out
     ${
       selectedRole === "guests"
         ? "left-1.5 w-[calc(33.333%-4px)]"
@@ -317,8 +326,8 @@ export function Attire() {
                     <button
                       key={role.id}
                       onClick={() => setSelectedRole(role.id)}
-                      className={`relative z-10 rounded-full px-3 py-2.5 text-sm font-medium transition-colors duration-300 md:text-base ${
-                        isActive ? "text-background" : "text-muted-foreground hover:bg-background hover:text-foreground"
+                      className={`relative z-10 rounded-full px-3 py-2.5 text-xs font-medium tracking-wide transition-colors duration-300 font-(family-name:--font-montserrat) md:text-sm ${
+                        isActive ? "text-foreground" : "text-muted-foreground hover:text-foreground"
                       }`}
                     >
                       {role.label}
@@ -328,12 +337,14 @@ export function Attire() {
               </div>
             </div>
 
-            <div className="mt-7 border-t border-secondary pt-5 min-h-[170px]">
+            <div className="mt-7 min-h-36 border-t border-border/50 pt-6">
               {isGuestRole ? (
                 <>
-                  <h4 className="text-base md:text-lg font-light text-foreground text-center mb-4">Select A Shade</h4>
+                  <h4 className="mb-5 text-center text-sm font-light uppercase tracking-[0.15em] text-foreground font-(family-name:--font-montserrat)">
+                    Select A Shade
+                  </h4>
 
-                  <div className="flex flex-nowrap items-start justify-center gap-3">
+                  <div className="flex flex-nowrap items-start justify-center gap-3 md:gap-4">
                     {greenShades.map((color) => (
                       <button
                         key={color.name}
@@ -360,17 +371,18 @@ export function Attire() {
                 </>
               ) : (
                 <>
-                  <h4 className="text-base md:text-lg font-light text-foreground text-center mb-4">Assigned Colors</h4>
+                  <h4 className="mb-5 text-center text-sm font-light uppercase tracking-[0.15em] text-foreground font-(family-name:--font-montserrat)">
+                    Assigned Palette
+                  </h4>
 
                   <div className="flex justify-center">
-                    <div className="rounded-full bg-secondary/25 border border-border/40 px-5 py-3">
-                      <div className="flex items-center gap-6">
+                    <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-3">
                         {assignedColorLabels.map((label) => {
                           const attire = label.name === "Women" ? activeAttire.women : activeAttire.men;
                           return (
-                            <div key={label.name} className="flex items-center gap-2 text-sm text-muted-foreground md:text-base">
+                            <div key={label.name} className="flex items-center gap-2.5 text-sm text-muted-foreground">
                               <span
-                                className="h-8 w-8 rounded-full border-4 border-background shadow-sm"
+                                className="h-11 w-11 rounded-full border-4 border-background shadow-sm ring-1 ring-border/40 md:h-12 md:w-12"
                                 style={{ backgroundColor: attire.color }}
                               />
                               <span>
@@ -379,17 +391,16 @@ export function Attire() {
                             </div>
                           );
                         })}
-                      </div>
                     </div>
                   </div>
                 </>
               )}
             </div>
-          </div>
-        </div>
 
-        <div className="mt-12 text-center">
-          <p className="text-sm text-muted-foreground italic max-w-lg mx-auto">Cocktail or semi-formal attire is encouraged.</p>
+            <div className="border-t border-border/40 pt-5 text-center">
+              <p className="text-xs italic text-muted-foreground md:text-sm">Cocktail or semi-formal attire is encouraged.</p>
+            </div>
+          </div>
         </div>
       </div>
     </section>

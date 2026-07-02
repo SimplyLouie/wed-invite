@@ -657,32 +657,52 @@ export function RSVP() {
           </div>
 
           {/* Live countdown to the RSVP deadline (12:00 AM PH time) */}
-          <div className="mt-8">
-            <p className="mb-4 text-xs tracking-[0.2em] uppercase text-muted-foreground font-(family-name:--font-montserrat)">
+          <div className="mt-6">
+            <p className="mb-3 text-[0.65rem] tracking-[0.2em] uppercase text-muted-foreground font-(family-name:--font-montserrat)">
               RSVP Closes In
             </p>
-            <div className="flex justify-center items-center gap-3 sm:gap-5">
+            <div
+              className="
+                mx-auto flex max-w-sm items-start justify-center
+                border-y border-blushpink/15 py-3 sm:py-4"
+              role="timer"
+              aria-label="Time remaining until RSVP closes"
+            >
               {[
                 { value: timeLeft.days, label: "Days" },
                 { value: timeLeft.hours, label: "Hours" },
                 { value: timeLeft.minutes, label: "Minutes" },
                 { value: timeLeft.seconds, label: "Seconds" },
-              ].map((item) => (
-                <div
-                  key={item.label}
-                  className="
-                    flex min-w-[64px] sm:min-w-[78px] flex-col items-center
-                    rounded-2xl border border-blushpink/15
-                    bg-white/70 backdrop-blur-sm
-                    px-3 py-3 sm:px-4 sm:py-4
-                    shadow-[0_8px_25px_rgba(0,0,0,0.05)]"
-                >
-                  <span className="text-2xl sm:text-4xl font-light text-foreground tabular-nums">
-                    {mounted ? item.value.toString().padStart(2, "0") : "--"}
-                  </span>
-                  <span className="mt-1 text-[0.6rem] sm:text-xs tracking-[0.15em] uppercase text-muted-foreground font-(family-name:--font-montserrat)">
-                    {item.label}
-                  </span>
+              ].map((item, index) => (
+                <div key={item.label} className="flex items-start">
+                  <div className="flex w-[15vw] max-w-20 min-w-12 flex-col items-center sm:w-16">
+                    <span
+                      className="
+                        w-[2.25ch] text-center text-[clamp(1.5rem,5vw,2.25rem)]
+                        font-(family-name:--font-montserrat) font-medium
+                        leading-none text-foreground tabular-nums"
+                    >
+                      {mounted ? item.value.toString().padStart(2, "0") : "--"}
+                    </span>
+                    <span
+                      className="
+                        mt-1.5 text-[0.45rem] tracking-[0.08em] uppercase
+                        text-muted-foreground font-(family-name:--font-montserrat)
+                        sm:text-[0.55rem] sm:tracking-[0.12em]"
+                    >
+                      {item.label}
+                    </span>
+                  </div>
+                  {index < 3 && (
+                    <span
+                      className="
+                        -mx-1 text-[clamp(1.5rem,5vw,2.25rem)] font-light
+                        leading-[0.82] text-blushpink/70 sm:mx-0"
+                      aria-hidden="true"
+                    >
+                      :
+                    </span>
+                  )}
                 </div>
               ))}
             </div>
